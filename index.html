@@ -3,234 +3,256 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#10243d">
-  <meta name="description" content="On YDS soru tipini birer özgün, beş seçenekli örnekle keşfedin. Cevap ve ayrıntılı çözüm öğretmen istediğinde açılır.">
-  <title>YDS Soru Tipleri | Sunum Rehberi</title>
+  <meta name="theme-color" content="#f5eee3">
+  <meta name="description" content="YDS soru kartları: ön yüzde özgün beş şıklı soru, arka yüzde çözüm teknikleri. Ayrıntılı cevap siz açınca görünür.">
+  <title>YDS Soru Kartları | Sinan Seden</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --ink:#10243d; --muted:#617189; --blue:#365bce; --paper:#f5f7fb;
-      --white:#fff; --line:#e2e8f2; --gold:#ffbf61; --good:#147b60;
-      --accent:#365bce; --tint:#e9eeff;
-    }
+    :root{--ink:#243047;--muted:#69758a;--blue:#4d57d8;--line:#e5e7ef;--accent:#365bce;--tint:#e9eeff;--good:#157b5b;--paper:#fffefa}
     *,*::before,*::after{box-sizing:border-box}
-    html{scroll-behavior:smooth}
-    body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.55 "DM Sans",sans-serif}
-    button{font:inherit;cursor:pointer}
+    [hidden]{display:none!important}
+    html{scroll-behavior:smooth;scroll-padding-top:158px}
+    body{margin:0;min-height:100vh;color:var(--ink);font:16px/1.55 'DM Sans',sans-serif;background:radial-gradient(ellipse at 8% 8%,#ffe7ac 0,transparent 34%),radial-gradient(ellipse at 98% 26%,#dcd8ff 0,transparent 38%),radial-gradient(ellipse at 12% 90%,#cceee1 0,transparent 35%),#f7f2e9}
+    button,select{font:inherit}
+    button{cursor:pointer}
+    button:disabled{cursor:not-allowed;opacity:.35}
     a{color:inherit}
-    :focus-visible{outline:3px solid #e5a63b;outline-offset:3px}
-    .wrap{width:min(1120px,calc(100% - 36px));margin-inline:auto}
-    .skip{position:absolute;top:-80px;left:12px;z-index:20;background:white;padding:10px 14px;border-radius:10px}
-    .skip:focus{top:10px}
-    .topbar{position:sticky;top:0;z-index:10;background:rgba(255,255,255,.96);border-bottom:1px solid var(--line);backdrop-filter:blur(16px)}
-    .top-inner{min-height:70px;display:flex;align-items:center;gap:17px}
-    .brand{display:inline-flex;align-items:center;gap:10px;font:800 16px/1.1 Manrope,sans-serif;text-decoration:none;white-space:nowrap}
-    .brand-mark{display:grid;place-items:center;background:var(--ink);color:white;width:39px;height:39px;border-radius:12px;font-size:18px}
-    .brand small{display:block;color:var(--blue);font:800 10px/1.3 "DM Sans",sans-serif;letter-spacing:.14em;margin-top:3px}
-    .back{margin-left:auto;text-decoration:none;font-size:13px;font-weight:800;color:#52627b}
-    .back:hover{color:var(--blue)}
-    .mode{border:1px solid #ccd6e7;background:#f1f4fc;color:#2448aa;border-radius:11px;padding:10px 15px;font-size:12px;font-weight:800;white-space:nowrap}
-    .mode[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:white}
-    .hero{background:#10243d;color:white;position:relative;overflow:hidden}
-    .hero::after{content:"";position:absolute;width:720px;height:720px;right:-260px;top:-410px;border-radius:50%;border:1px solid rgba(255,255,255,.1);box-shadow:0 0 0 80px rgba(255,255,255,.025),0 0 0 165px rgba(255,255,255,.02)}
-    .hero-inner{padding:47px 0 51px;position:relative;z-index:1;display:flex;justify-content:space-between;align-items:center;gap:30px}
-    .eyebrow{font-weight:800;letter-spacing:.16em;font-size:11px;text-transform:uppercase;color:#83e0dc}
+    :focus-visible{outline:3px solid #dd9426;outline-offset:4px}
     h1,h2,h3,p{margin-top:0}
-    h1,h2,h3{font-family:Manrope,sans-serif;letter-spacing:-.045em}
-    h1{font-size:clamp(32px,4.4vw,51px);line-height:1.13;margin:12px 0}
-    h1 em{font-style:normal;color:var(--gold)}
-    .hero p{color:#cbd7e8;max-width:610px;margin:0;font-size:15px}
-    .hero-graphic{flex:0 0 210px;height:150px;position:relative;display:grid;place-items:center}
-    .hero-graphic::before{content:"?";display:grid;place-items:center;font:800 112px/1 Manrope,sans-serif;color:var(--gold);width:140px;height:140px;border:9px solid rgba(255,255,255,.12);border-radius:36px;transform:rotate(-8deg);background:#3154ad;box-shadow:0 20px 35px rgba(0,0,0,.15)}
-    .hero-graphic span{position:absolute;right:0;bottom:-2px;background:white;color:#254071;padding:7px 13px;border-radius:9px;font-size:11px;font-weight:800;transform:rotate(5deg);box-shadow:0 10px 25px rgba(0,0,0,.15)}
-    .main{padding:27px 0 70px}
-    .intro-strip{display:flex;align-items:center;justify-content:space-between;gap:20px;background:white;border:1px solid var(--line);border-radius:16px;padding:17px 21px;box-shadow:0 10px 30px rgba(24,49,85,.05)}
-    .intro-strip strong{font-size:13px}
-    .intro-strip p{font-size:12px;color:var(--muted);margin:2px 0 0}
-    .stage-dots{display:flex;gap:7px;white-space:nowrap}
-    .stage-dots span{padding:7px 10px;border-radius:9px;background:#eef2fa;color:#49607d;font-size:11px;font-weight:800}
-    .section-label{display:flex;justify-content:space-between;align-items:end;gap:20px;margin:30px 0 12px}
-    .section-label h2{font-size:21px;margin:0}
-    .section-label span{color:var(--muted);font-size:12px}
-    .type-nav{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:9px}
-    .type-button{min-height:60px;display:flex;align-items:center;gap:9px;padding:9px 11px;text-align:left;border:1px solid #dde5f0;border-radius:12px;background:white;color:#53657e}
-    .type-button:hover{border-color:#8296d8;background:#f9faff}
-    .type-button[aria-current="step"]{border-color:var(--accent);background:var(--tint);color:var(--ink);box-shadow:inset 0 0 0 1px var(--accent)}
-    .type-button b{display:grid;place-items:center;flex:0 0 28px;height:28px;border-radius:8px;background:#eef2f9;color:#53657e;font:800 11px Manrope,sans-serif}
-    .type-button[aria-current="step"] b{background:var(--accent);color:white}
-    .type-button span{font-size:11px;font-weight:800;line-height:1.25}
-    .lesson{margin-top:20px;background:white;border:1px solid var(--line);border-radius:23px;overflow:hidden;box-shadow:0 20px 50px rgba(24,49,85,.075)}
-    .lesson-header{display:flex;align-items:center;gap:16px;padding:26px 31px;border-bottom:1px solid var(--line)}
-    .type-icon{display:grid;place-items:center;flex:0 0 54px;height:54px;background:var(--tint);color:var(--accent);border-radius:15px;font:800 29px Manrope,sans-serif}
-    .lesson-heading{min-width:0}
-    .mini-label{color:var(--accent);font-size:10px;font-weight:800;letter-spacing:.14em;text-transform:uppercase}
-    .lesson h2{font-size:clamp(23px,2.6vw,31px);margin:2px 0 0;line-height:1.25}
-    .counter{margin-left:auto;white-space:nowrap;text-align:right;color:var(--muted);font-size:11px;font-weight:800}
-    .counter strong{display:block;color:var(--ink);font:800 18px Manrope,sans-serif}
-    .lesson-progress{height:4px;background:#e9eef7}
-    .lesson-progress span{display:block;height:100%;background:var(--accent);transition:width .25s ease}
-    .lesson-content{padding:27px 31px 30px}
-    .approach{display:grid;grid-template-columns:1fr auto;gap:18px;align-items:center;background:var(--tint);border:1px solid color-mix(in srgb,var(--accent) 20%,white);border-radius:15px;padding:17px 20px;margin-bottom:26px}
-    .approach h3{font-size:13px;margin-bottom:4px;color:var(--accent)}
-    .approach p{font-size:13px;line-height:1.5;margin:0;max-width:650px}
-    .skills{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:6px;max-width:340px}
-    .skill{border-radius:50px;padding:6px 10px;font-size:11px;font-weight:800;white-space:nowrap}
-    .skill:nth-child(3n+1){background:#e4eafa;color:#2448ac}
-    .skill:nth-child(3n+2){background:#ddf5ef;color:#0c715a}
-    .skill:nth-child(3n){background:#fff0d6;color:#8d570c}
-    .question-instruction{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.04em;color:#687891;margin-bottom:15px}
-    .passage{white-space:pre-line;border-left:4px solid var(--accent);background:#f7f9fd;border-radius:0 12px 12px 0;padding:18px 20px;margin-bottom:20px;font-size:15px;line-height:1.68;color:#26384f}
-    .stem{font:700 clamp(17px,2vw,21px)/1.5 Manrope,sans-serif;letter-spacing:-.025em;margin:0 0 21px;white-space:pre-line}
+    h1,h2,h3{font-family:Manrope,sans-serif;letter-spacing:-.04em}
+    .wrap{width:min(1180px,calc(100% - 48px));margin-inline:auto}
+    .skip{position:absolute;top:-80px;left:12px;z-index:50;background:white;padding:12px 18px;border-radius:12px}
+    .skip:focus{top:10px}
+    .study-backdrop{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none}
+    .study-backdrop svg{width:100%;height:100%;opacity:.72}
+    .topbar{background:rgba(255,254,250,.91);border-bottom:1px solid rgba(107,112,147,.12);position:sticky;top:0;z-index:20;backdrop-filter:blur(18px)}
+    .top-inner{min-height:72px;display:flex;align-items:center;gap:18px}
+    .brand{display:flex;align-items:center;gap:11px;text-decoration:none;font:800 16px/1.1 Manrope,sans-serif;white-space:nowrap}
+    .brand-mark{background:#4d57d8;color:#fff;display:grid;place-items:center;width:42px;height:42px;border-radius:14px;box-shadow:0 4px 0 #d4d2f7;font-size:23px;transform:rotate(-5deg)}
+    .brand small{display:block;font:800 9px/1.4 'DM Sans',sans-serif;letter-spacing:.18em;color:#80798b;margin-top:5px}
+    .guide-link{margin-left:auto;font-size:12px;font-weight:800;text-decoration:none;color:#657089}
+    .guide-link:hover{color:var(--blue)}
+    .mode{border:1px solid #dcd9eb;background:#f0eefb;color:#5552a5;border-radius:12px;padding:10px 15px;font-size:12px;font-weight:800}
+    .mode[aria-pressed=true]{background:#4d57d8;color:white;border-color:#4d57d8}
+    .hero{display:flex;align-items:center;justify-content:space-between;gap:32px;padding:33px 8px 25px}
+    .eyebrow{font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:#8b6741}
+    h1{font-size:clamp(31px,3.3vw,43px);line-height:1.2;margin:9px 0 10px}
+    h1 span{color:#5356bd}
+    .hero p{font-size:14px;color:#687185;max-width:640px;margin:0}
+    .hero-art{width:255px;height:151px;flex-shrink:0}
+    .hero-badge{display:inline-flex;gap:7px;align-items:center;background:#fff8df;border:1px solid #ebdfb7;color:#806230;padding:5px 10px;border-radius:50px;font-size:10px;font-weight:800;margin-top:13px}
+    .main{padding-bottom:42px}
+    .carousel-toolbar{display:flex;align-items:center;justify-content:space-between;gap:18px;position:sticky;top:72px;z-index:15;padding:12px 18px;background:rgba(255,254,250,.95);backdrop-filter:blur(16px);border:1px solid #e1dded;border-radius:17px;box-shadow:0 7px 24px #49367508}
+    .type-picker{display:flex;align-items:center;gap:10px;min-width:0}
+    .type-picker label{font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;white-space:nowrap;color:#8a8199}
+    select{max-width:330px;min-width:190px;color:var(--ink);background:#f3f1fa;border:1px solid #e1deec;border-radius:10px;font-size:13px;font-weight:700;padding:9px 30px 9px 12px;cursor:pointer}
+    .carousel-controls{display:flex;align-items:center;gap:14px}
+    .arrow{display:grid;place-items:center;border:1px solid #dadceb;background:white;width:39px;height:39px;border-radius:12px;font-size:22px;color:#51529b;line-height:1}
+    .arrow:hover:not(:disabled){background:#ebeafd;border-color:#b4b2e6}
+    .deck-count{font:800 13px Manrope,sans-serif;white-space:nowrap;min-width:62px;text-align:center}
+    .deck-count span{color:#9993ab;font-size:11px}
+    .type-nav{display:flex;gap:7px;justify-content:center;padding:16px 0 24px;overflow-x:auto;scrollbar-width:thin}
+    .type-button{flex:1 0 auto;min-width:0;border:1px solid #e1dfea;background:#ffffffb8;border-radius:11px;padding:9px 10px;color:#7b768b;display:flex;align-items:center;justify-content:center;gap:7px;white-space:nowrap;font-size:10px;font-weight:800}
+    .type-button b{font-size:10px;font-family:Manrope,sans-serif}
+    .type-button[aria-current=step]{background:var(--accent);border-color:var(--accent);color:white;box-shadow:0 4px 12px color-mix(in srgb,var(--accent) 22%,transparent)}
+    .type-button:hover:not([aria-current]){background:white;border-color:#ada8cc}
+    .deck{position:relative;margin:0 15px;perspective:1400px;isolation:isolate}
+    .deck::before,.deck::after{content:'';position:absolute;inset:0;border:1px solid #c9c9dc;border-radius:27px;z-index:-1;pointer-events:none}
+    .deck::before{background:#e6dfef;transform:rotate(-1.1deg) translateY(9px)}
+    .deck::after{background:#f6dda6;transform:rotate(.85deg) translateY(4px)}
+    .question-card{position:relative;background:var(--paper);border:1px solid #dcdceb;border-radius:25px;box-shadow:0 20px 50px #39306815;overflow:hidden;transform-origin:50% 40%;will-change:auto}
+    .card-head{display:flex;align-items:center;gap:15px;padding:23px 30px 22px;border-bottom:1px solid #e9e7ee;background:linear-gradient(105deg,var(--tint),#fffefa 65%);position:relative}
+    .card-head::after{content:'';position:absolute;top:0;left:0;right:0;height:5px;background:var(--accent)}
+    .type-icon{display:grid;place-items:center;flex:0 0 53px;height:53px;border-radius:15px;background:white;color:var(--accent);font:800 27px Manrope,sans-serif;box-shadow:0 3px 0 color-mix(in srgb,var(--accent) 12%,white)}
+    .face-label{color:var(--accent);font-size:10px;letter-spacing:.13em;font-weight:800;text-transform:uppercase}
+    .card-head h2{font-size:clamp(22px,2.4vw,29px);line-height:1.25;margin:4px 0 0}
+    .card-head h2:focus{outline:0}
+    .face-badge{margin-left:auto;border:1px solid color-mix(in srgb,var(--accent) 22%,white);padding:7px 11px;border-radius:50px;font-size:10px;font-weight:800;color:var(--accent);background:white;white-space:nowrap}
+    .card-body{padding:27px 31px 26px}
+    .question-instruction{display:block;font-size:11px;color:#788093;font-weight:700;margin-bottom:17px;letter-spacing:.02em}
+    .question-layout{display:block}
+    .has-passage .question-layout{display:grid;grid-template-columns:.96fr 1.04fr;gap:29px;align-items:start}
+    .passage{background:#f5f5fa;border:1px solid #e3e4ef;border-left:4px solid var(--accent);border-radius:0 15px 15px 0;padding:21px 22px;white-space:pre-line;font-size:16px;line-height:1.8;color:#3d4960}
+    .passage-label{display:block;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.14em;color:#86829b;margin-bottom:12px;white-space:normal}
+    .stem{font:700 clamp(18px,1.7vw,22px)/1.6 Manrope,sans-serif;margin:0 0 23px;letter-spacing:-.025em;white-space:pre-line}
     .options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-    .option{border:1px solid #dbe3ef;background:white;border-radius:12px;padding:12px 14px;display:flex;align-items:flex-start;gap:12px;text-align:left;color:#26384f;min-height:58px;line-height:1.45}
-    .option:hover{border-color:#7e95dc;background:#f8faff}
-    .option .letter{display:grid;place-items:center;flex:0 0 27px;height:27px;border-radius:8px;background:#edf1f8;color:#556b88;font-size:11px;font-weight:800}
-    .option .option-text{font-size:13px;padding-top:3px}
-    .option.selected{border-color:var(--blue);background:#eef2ff;box-shadow:inset 0 0 0 1px var(--blue)}
-    .option.selected .letter{background:var(--blue);color:white}
-    .option.correct{border-color:#43a483;background:#e8f8f1;box-shadow:inset 0 0 0 1px #43a483}
-    .option.correct .letter{background:var(--good);color:white}
-    .option.incorrect{border-color:#d38379;background:#fff1ef}
-    .option.incorrect .letter{background:#b34f46;color:white}
-    .selection-note{font-size:12px;color:var(--muted);min-height:24px;margin:11px 0 0}
-    .reveal-row{display:flex;align-items:center;justify-content:space-between;gap:12px;border-top:1px solid var(--line);padding-top:19px;margin-top:15px}
-    .reveal-row p{font-size:12px;color:var(--muted);margin:0}
-    .reveal{background:var(--ink);color:white;border:0;border-radius:11px;padding:12px 17px;font-size:12px;font-weight:800;white-space:nowrap}
-    .reveal:hover{background:#244269}
-    .solution[hidden]{display:none}
-    .solution{margin-top:20px;border:1px solid #b7dfce;background:#f3fbf7;border-radius:17px;padding:22px}
-    .solution-top{display:flex;align-items:center;gap:12px;margin-bottom:12px}
-    .answer-badge{display:grid;place-items:center;width:40px;height:40px;border-radius:11px;background:var(--good);color:white;font:800 19px Manrope,sans-serif}
-    .solution h3{margin:0;font-size:19px;color:#17684f}
-    .solution h4{font-size:12px;text-transform:uppercase;letter-spacing:.09em;margin:19px 0 8px;color:#386451}
-    .solution p{font-size:14px;margin:0;color:#21433a}
-    .why-list{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
-    .why-list li{font-size:12px;line-height:1.5;background:white;border:1px solid #d8e9df;border-radius:10px;padding:10px 12px}
-    .why-list strong{color:#2b6d55}
-    .lesson-footer{border-top:1px solid var(--line);background:#fbfcff;padding:18px 31px;display:flex;justify-content:space-between;align-items:center;gap:15px}
-    .nav-action{border:1px solid #d5dfed;border-radius:11px;background:white;color:#335176;padding:10px 15px;font-size:12px;font-weight:800}
-    .nav-action:hover:not(:disabled){border-color:var(--blue);color:var(--blue)}
-    .nav-action:disabled{opacity:.35;cursor:not-allowed}
-    .keyboard{font-size:11px;color:#8694a7;text-align:center}
-    .footnote{margin:17px 4px 0;color:#7a899c;font-size:11px}
-    footer{border-top:1px solid var(--line);padding:27px 0 35px;color:#687891;font-size:12px}
-    .footer-inner{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
-    footer strong{color:var(--ink)}
-    footer a{color:var(--blue);font-weight:800}
-    body.presenting .hero,body.presenting .intro-strip,body.presenting .section-label,body.presenting .footnote,body.presenting footer{display:none}
-    body.presenting .main{padding-top:18px;padding-bottom:24px}
-    body.presenting .type-nav{grid-template-columns:repeat(10,minmax(0,1fr));gap:6px}
-    body.presenting .type-button{justify-content:center;min-height:38px;padding:4px}
+    .options.long,.has-passage .options{grid-template-columns:1fr}
+    .option{display:flex;align-items:flex-start;gap:12px;text-align:left;border:1px solid #e0e2ed;border-radius:13px;background:white;color:#37465a;padding:12px 14px;min-height:52px;line-height:1.5;transition:background .15s,border-color .15s}
+    .option:hover{border-color:#afaadb;background:#faf9ff}
+    .letter{flex:0 0 27px;height:27px;border-radius:9px;display:grid;place-items:center;background:#f1f0f8;color:#82799b;font-size:11px;font-weight:800}
+    .option-text{font-size:15px;padding-top:2px}
+    .option.selected{background:var(--tint);border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
+    .option.selected .letter{background:var(--accent);color:white}
+    .selection-row{min-height:34px;margin-top:14px;display:flex;align-items:center;justify-content:space-between;gap:15px}
+    .selection-note{font-size:11px;color:#8b8598;margin:0}
+    .clear{background:none;border:0;color:#7d748d;font-size:11px;text-decoration:underline;padding:5px;white-space:nowrap}
+    .card-action{border-top:1px dashed #e0dcea;display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:16px;padding-top:20px}
+    .card-action p{margin:0;font-size:12px;color:#8a8296}
+    .primary{display:inline-flex;justify-content:center;align-items:center;gap:8px;border:0;background:#4d57d8;color:white;border-radius:13px;padding:13px 20px;font-size:13px;font-weight:800;box-shadow:0 4px 0 #d9d8f0;white-space:nowrap}
+    .primary:hover{background:#3f48c0}
+    .primary .turn-icon{font-size:19px;line-height:1}
+    .back-intro{display:grid;grid-template-columns:1.15fr .85fr;gap:26px;align-items:center;margin-bottom:22px}
+    .back-intro h3{font-size:21px;margin-bottom:8px}
+    .back-intro p{font-size:16px;line-height:1.7;margin:0;color:#526077}
+    .skill-block{background:#f4f0fb;border:1px solid #e8e2f2;padding:18px;border-radius:17px}
+    .skill-label{display:block;color:#8a7d9c;font-size:10px;text-transform:uppercase;letter-spacing:.12em;font-weight:800;margin-bottom:10px}
+    .skills{display:flex;flex-wrap:wrap;gap:7px}
+    .skill{border-radius:50px;padding:7px 11px;font-size:12px;font-weight:800}
+    .skill:nth-child(3n+1){background:#e2e6ff;color:#434bac}
+    .skill:nth-child(3n+2){background:#d6f1e7;color:#206b55}
+    .skill:nth-child(3n){background:#ffe9bc;color:#8c5a16}
+    .techniques{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px;list-style:none;padding:0;margin:0 0 20px;counter-reset:steps}
+    .techniques li{counter-increment:steps;position:relative;background:#fff9ec;border:1px solid #ece3cf;padding:18px;border-radius:15px}
+    .techniques li::before{content:'0' counter(steps);display:block;color:#b28b45;font:800 11px Manrope,sans-serif;letter-spacing:.06em;margin-bottom:9px}
+    .techniques strong{display:block;font:800 14px Manrope,sans-serif;margin-bottom:7px;color:#725f42}
+    .techniques p{font-size:13px;color:#7b7367;line-height:1.6;margin:0}
+    .pitfall{display:flex;gap:10px;background:#f8eef0;border:1px solid #efdce2;border-radius:12px;padding:11px 14px;color:#946171;font-size:12px;margin-bottom:22px}
+    .pitfall strong{white-space:nowrap}
+    .reveal-row{background:#eef5f0;border:1px solid #dbe8df;border-radius:15px;padding:16px 18px;display:flex;align-items:center;justify-content:space-between;gap:15px}
+    .reveal-row p{margin:0;font-size:12px;color:#6d8275}
+    .reveal{background:#29765c;color:white;border:0;border-radius:11px;padding:11px 16px;font-size:12px;font-weight:800;white-space:nowrap}
+    .reveal:hover{background:#1d614a}
+    .solution{background:#f4faf6;border:1px solid #cae2d2;border-radius:17px;margin-top:15px;padding:22px}
+    .solution-top{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+    .answer-badge{display:grid;place-items:center;flex:0 0 41px;height:41px;background:#29765c;color:white;font:800 20px Manrope,sans-serif;border-radius:12px}
+    .solution h3{font-size:21px;color:#296247;margin:0}
+    .solution h4{font-size:11px;letter-spacing:.1em;color:#557962;margin:19px 0 9px;text-transform:uppercase}
+    .solution p{font-size:15px;line-height:1.75;color:#355744;margin:0}
+    .why-list{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:1fr 1fr;gap:9px}
+    .why-list li{border:1px solid #dceade;background:white;border-radius:10px;padding:12px;font-size:13px;line-height:1.65;color:#577260}
+    .why-list strong{color:#29765c}
+    .return{background:white;color:#655b84;border:1px solid #dad4e6;border-radius:11px;padding:11px 16px;font-size:12px;font-weight:800}
+    .return:hover{background:#f5f1fb}
+    .deck-footer{display:flex;justify-content:space-between;gap:20px;padding:23px 21px 0;font-size:11px;color:#9b909f}
+    .keyboard{white-space:nowrap}
+    .footnote{font-size:10px;max-width:640px}
+    footer{border-top:1px solid #e3dbdf;padding:18px 0 24px;font-size:11px;color:#918792;background:#fffefa55}
+    .footer-inner{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap}
+    footer a{font-weight:700;color:#71648f}
+    body.presenting .hero,body.presenting footer,body.presenting .deck-footer{display:none}
+    body.presenting .main{padding-top:15px}
+    body.presenting .type-nav{padding-top:12px;padding-bottom:20px}
     body.presenting .type-button span{display:none}
-    body.presenting .lesson{margin-top:12px}
-    body.presenting .lesson-content{padding:28px 38px 32px}
-    body.presenting .passage{font-size:19px}
-    body.presenting .stem{font-size:24px}
-    body.presenting .option .option-text{font-size:17px}
-    body.presenting .approach p{font-size:16px}
-    @media(max-width:850px){
-      .type-nav{grid-template-columns:repeat(5,minmax(0,1fr))}
-      .type-button{min-height:53px}
-      .type-button span{font-size:10px}
-      .approach{grid-template-columns:1fr}
-      .skills{justify-content:flex-start;max-width:none}
-      body.presenting .type-nav{grid-template-columns:repeat(10,minmax(0,1fr))}
+    body.presenting .option-text{font-size:18px}
+    body.presenting .stem{font-size:25px}
+    body.presenting .passage{font-size:18px}
+    body.presenting .back-intro p,body.presenting .solution p{font-size:18px}
+    body.presenting .techniques p,body.presenting .why-list li{font-size:15px}
+    body.presenting .study-backdrop svg{opacity:.38}
+    @media(max-width:1050px){
+      .type-button span{display:none}.type-button{flex:1 0 40px}
+      .has-passage .question-layout{gap:20px;grid-template-columns:1fr 1fr}
+      .wrap{width:calc(100% - 32px)}
+      .deck{margin:0 8px}
     }
-    @media(max-width:650px){
-      .wrap{width:min(100% - 24px,1120px)}
-      .top-inner{min-height:62px;gap:9px}
-      .brand{font-size:12px}
-      .brand-mark{width:31px;height:31px;font-size:14px}
-      .brand small{font-size:8px}
-      .back{font-size:11px}
-      .mode{padding:8px 9px;font-size:10px}
-      .hero-inner{padding:37px 0}
-      .hero-graphic{display:none}
-      .stage-dots{display:none}
-      .intro-strip{padding:13px 15px}
-      .type-nav{display:flex;overflow-x:auto;padding-bottom:7px;scrollbar-width:thin}
-      .type-button{flex:0 0 128px}
-      .lesson-header{padding:19px 17px;gap:10px}
-      .type-icon{flex-basis:40px;height:40px;font-size:22px}
-      .counter strong{font-size:14px}
-      .lesson-content{padding:18px 16px}
-      .approach{padding:13px 14px;margin-bottom:19px}
-      .options{grid-template-columns:1fr}
-      .option{min-height:49px}
-      .passage{font-size:13px;padding:14px}
-      .stem{font-size:17px}
-      .reveal-row{align-items:stretch;flex-direction:column}
-      .reveal-row p{order:2}
-      .why-list{grid-template-columns:1fr}
-      .lesson-footer{padding:14px 16px}
-      .keyboard{display:none}
-      body.presenting .type-nav{display:flex}
-      body.presenting .type-button{flex:0 0 36px}
-      body.presenting .lesson-content{padding:18px 16px}
-      body.presenting .passage{font-size:15px}
-      body.presenting .stem{font-size:19px}
-      body.presenting .option .option-text{font-size:14px}
-      body.presenting .approach p{font-size:13px}
+    @media(max-width:780px){
+      .has-passage .question-layout{display:block}.passage{margin-bottom:22px;font-size:15px}
+      .hero-art{width:190px}.hero{gap:15px}
+      .back-intro{grid-template-columns:1fr}.techniques{grid-template-columns:1fr}
+      .techniques li{padding:15px 18px 15px 53px}.techniques li::before{position:absolute;left:18px;top:17px}
+      .options{grid-template-columns:1fr}.card-head{padding:21px 23px}.card-body{padding:23px}
+      .type-picker label{display:none}select{min-width:160px;max-width:260px}
+      .carousel-controls{gap:9px}
     }
-    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition-duration:.01ms!important;animation-duration:.01ms!important}}
+    @media(max-width:560px){
+      .wrap{width:calc(100% - 24px)}.top-inner{min-height:65px;gap:9px}
+      .brand{font-size:12px;gap:8px}.brand-mark{width:33px;height:33px;font-size:18px}.brand small{font-size:8px}
+      .guide-link{font-size:10px}.mode{padding:9px;font-size:10px}
+      .hero{padding:25px 4px 23px}.hero-art{display:none}h1{font-size:31px}.hero p{font-size:13px}
+      .carousel-toolbar{top:65px;padding:10px 11px;border-radius:13px;gap:8px}
+      select{font-size:11px;min-width:0;width:100%;padding:9px 23px 9px 8px}.type-picker{flex:1}
+      .arrow{width:32px;height:32px;font-size:19px;border-radius:9px}.deck-count{font-size:11px;min-width:46px}
+      .carousel-controls{gap:6px}.deck-count span{font-size:9px}
+      .type-nav{padding:13px 0 20px;gap:5px}.type-button{flex:1 0 30px;padding:7px}
+      .deck{margin:0 3px}.deck::before,.deck::after{border-radius:20px}.question-card{border-radius:19px}
+      .card-head{padding:19px 16px;gap:10px}.type-icon{flex-basis:38px;height:38px;font-size:21px;border-radius:11px}
+      .card-head h2{font-size:20px}.face-label{font-size:8px}.face-badge{font-size:8px;padding:6px 8px}
+      .card-body{padding:21px 17px 22px}.stem{font-size:18px}.option-text{font-size:14px}
+      .card-action{align-items:stretch;flex-direction:column;gap:12px}.card-action p{font-size:11px}
+      .primary{width:100%;padding:13px}.selection-row{gap:8px}.selection-note{font-size:10px}
+      .reveal-row{flex-direction:column;align-items:stretch;padding:14px}.reveal{white-space:normal}
+      .back-intro p{font-size:15px}.back-intro h3{font-size:21px}.why-list{grid-template-columns:1fr}
+      .pitfall{display:block}.pitfall strong{display:block;margin-bottom:3px}.solution{padding:17px}
+      .deck-footer{padding:23px 7px 0}.keyboard{display:none}.study-backdrop svg{opacity:.4}
+      body.presenting .stem{font-size:21px}body.presenting .option-text{font-size:16px}body.presenting .passage{font-size:16px}
+      body.presenting .back-intro p,body.presenting .solution p{font-size:16px}
+      html{scroll-padding-top:144px}
+    }
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important;animation:none!important}}
     @media print{
-      .topbar,.hero,.intro-strip,.type-nav,.lesson-footer,.reveal-row,.selection-note,.footnote,footer{display:none!important}
-      body{background:white}
-      .main{padding:0}
-      .lesson{border:0;box-shadow:none;margin:0}
-      .lesson-content{padding:16px 0}
-      .solution[hidden]{display:block}
-      .options{grid-template-columns:1fr 1fr}
+      .topbar,.hero,.carousel-toolbar,.type-nav,.study-backdrop,.deck-footer,.card-action,.reveal-row,.selection-row,footer{display:none!important}
+      body{background:white}.main,.card-body{padding:0}.wrap{width:100%}.deck{margin:0}.deck::before,.deck::after{display:none}
+      .question-card{border:0;box-shadow:none;overflow:visible}.face[hidden],.solution[hidden]{display:block!important}.card-head{background:white;padding:14px 0}
+      .has-passage .question-layout{display:block}.passage{margin-bottom:20px}.face-back{break-before:page}.techniques{grid-template-columns:1fr 1fr 1fr}
     }
   </style>
 </head>
 <body>
-  <a class="skip" href="#lesson">İçeriğe geç</a>
-  <div class="topbar">
-    <div class="wrap top-inner">
-      <a class="brand" href="#top"><span class="brand-mark" aria-hidden="true">Y</span><span>YDS SORU TİPLERİ<small>SİNAN SEDEN</small></span></a>
-      <a class="back" href="https://sinanseden-eng.github.io/dacka-yds-rehberi/">← YDS rehberi</a>
-      <button class="mode" id="modeButton" type="button" aria-pressed="false">Sunum modu</button>
-    </div>
+  <div class="study-backdrop" aria-hidden="true">
+    <svg viewBox="0 0 1600 1100" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+      <g fill="none" stroke="#d9d2d8" stroke-width="1" opacity=".36"><path d="M0 140H1600M0 220H1600M0 300H1600M0 380H1600M0 460H1600M0 540H1600M0 620H1600M0 700H1600M0 780H1600M0 860H1600M0 940H1600M0 1020H1600"/></g>
+      <g transform="translate(36 395) rotate(-18)"><rect width="95" height="135" rx="9" fill="#c5bbea"/><rect x="13" y="11" width="80" height="116" rx="3" fill="#fdf9ef"/><path d="M20 31H77M20 49H72M20 67H77M20 85H61" stroke="#cbc5d9" stroke-width="3"/><path d="M1 15V119" stroke="#9188c4" stroke-width="5"/><path d="M58 11V43L69 36L80 43V11" fill="#efa697"/></g>
+      <g transform="translate(1441 251) rotate(15)"><rect width="114" height="135" rx="4" fill="#ffdfa2"/><path d="M23 34H89M23 53H84M23 72H75" stroke="#cba361" stroke-width="4"/><path d="M41 99l10 10 23-26" fill="none" stroke="#9c925e" stroke-width="5" stroke-linecap="round"/><rect x="30" y="-8" width="56" height="18" fill="#ffffff90"/></g>
+      <g transform="translate(53 818) rotate(13)"><path d="M0 0Q55-15 110 5Q165-15 220 0V142Q165 127 110 148Q55 127 0 142Z" fill="#d6b87f"/><path d="M7-6Q58-18 109 3V136Q59 119 7 133Z" fill="#fffdf4"/><path d="M113 3Q165-18 212-6V133Q163 119 113 136Z" fill="#f9eedb"/><path d="M24 23L90 29M24 42L90 47M24 62L83 67M24 82L90 88M132 28L195 22M132 48L194 41M132 68L182 62M132 88L194 82" stroke="#b6c8b3" stroke-width="3"/><path d="M109 5V145" stroke="#d5c8ab" stroke-width="2"/></g>
+      <g transform="translate(1420 654) rotate(-21)"><rect width="29" height="213" rx="6" fill="#f6b781"/><path d="M9 22V184M20 22V184" stroke="#df995f" stroke-width="2"/><path d="M0 191L14 224L29 191" fill="#ecd8bc"/><path d="M9 213L14 224L20 212" fill="#4c5670"/><rect width="29" height="20" rx="6" fill="#dd91a3"/><rect y="20" width="29" height="9" fill="#f5e5dd"/></g>
+      <g transform="translate(1480 966) rotate(-6)"><rect x="-90" y="-40" width="220" height="35" rx="8" fill="#91c8ba"/><rect x="-74" y="-3" width="190" height="30" rx="7" fill="#baafe0"/><rect x="-99" y="31" width="240" height="31" rx="7" fill="#f0b38e"/><path d="M-78-24H98M-64 12H94M-81 46H113" stroke="#fff7ec" stroke-width="10"/></g>
+      <g transform="translate(39 172) rotate(-10)"><rect width="26" height="127" rx="5" fill="#aed8c0"/><rect x="4" y="-20" width="18" height="26" rx="3" fill="#78b7a0"/><path d="M3 125L23 125L22 145L7 145Z" fill="#7bb59c"/><rect x="7" y="12" width="12" height="85" rx="2" fill="#ceead6"/></g>
+      <g fill="none" stroke="#e4b077" stroke-width="3" stroke-linecap="round"><path d="M122 639h18m-9-9v18M1490 480h22m-11-11v22M186 182h15m-7-8v16"/></g>
+      <g fill="#b3add2"><circle cx="109" cy="711" r="5"/><circle cx="1540" cy="581" r="6"/><circle cx="1407" cy="438" r="4"/></g>
+      <path d="M117 552c28-14 37-13 44 1s-10 20-16 8" stroke="#c0bad8" stroke-width="3" fill="none" stroke-linecap="round"/>
+    </svg>
   </div>
-  <header class="hero" id="top">
-    <div class="wrap hero-inner">
-      <div><span class="eyebrow">YDS / Soru laboratuvarı</span><h1>Bir tip. <em>Bir soru.</em><br>Bir çözüm yolu.</h1><p>YDS rehberinden sonra her soru türünü tek bir örnekle keşfedin. Öğrenciler önce tartışsın; cevap ve ayrıntılı çözüm siz açınca görünsün.</p></div>
-      <div class="hero-graphic" aria-hidden="true"><span>10 özgün örnek • 5 şık</span></div>
+  <a class="skip" href="#deck">Soru kartına geç</a>
+  <header class="topbar" id="top"><div class="wrap top-inner">
+    <a class="brand" href="#top"><span class="brand-mark" aria-hidden="true">Y</span><span>YDS SORU KARTLARI<small>SİNAN SEDEN</small></span></a>
+    <a class="guide-link" href="https://sinanseden-eng.github.io/dacka-yds-rehberi/">← YDS rehberi</a>
+    <button class="mode" id="modeButton" type="button" aria-pressed="false">Sunum modu</button>
+  </div></header>
+  <div class="wrap hero">
+    <div><span class="eyebrow">Küçük bir çalışma molası</span><h1>Bir soru kartı.<br><span>Yepyeni bir bakış açısı.</span></h1><p>Önce soruyu tartışın. Kartı çevirip tekniği keşfedin.<br>Ayrıntılı çözümü hazır olduğunuzda açın.</p><span class="hero-badge">10 soru tipi · 10 özgün soru · 5 şık</span></div>
+    <svg class="hero-art" viewBox="0 0 330 210" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="168" cy="174" rx="148" ry="18" fill="#d5c9cd" opacity=".3"/>
+      <g transform="translate(210 106) rotate(5)"><rect width="99" height="20" rx="5" fill="#a6cbbc"/><rect x="9" y="22" width="91" height="18" rx="5" fill="#c3b3e0"/><rect x="-4" y="43" width="108" height="21" rx="5" fill="#e8a681"/><path d="M6 10H90M15 31H89M3 54H94" stroke="#fffcf3" stroke-width="6"/></g>
+      <g transform="translate(35 47) rotate(-8)"><rect width="162" height="128" rx="12" fill="#535abb"/><rect x="10" y="7" width="145" height="113" rx="8" fill="#fffdf6"/><path d="M78 11V112" stroke="#dfd8cc" stroke-width="2"/><path d="M20 33H65M20 48H65M20 63H60M20 78H65M92 33H139M92 49H139M92 65H129M92 81H139" stroke="#cacbd8" stroke-width="3"/><path d="M120 7V33L128 27L136 33V7" fill="#eab087"/></g>
+      <g transform="translate(211 28) rotate(12)"><rect width="74" height="72" rx="4" fill="#ffdc8d"/><rect x="16" y="-7" width="42" height="14" fill="#fffdf2" opacity=".75"/><path d="M23 33c0-16 28-16 28-2 0 10-14 9-14 18" fill="none" stroke="#b8873b" stroke-width="5" stroke-linecap="round"/><circle cx="37" cy="59" r="3" fill="#b8873b"/></g>
+      <g transform="translate(154 128) rotate(31)"><rect width="15" height="73" rx="3" fill="#da9c91"/><path d="M0 71L8 91L15 71" fill="#e5c5a5"/><path d="M5 85L8 91L11 84" fill="#555e75"/><rect width="15" height="12" rx="3" fill="#a69abb"/></g>
+      <path d="M16 22h13m-7-7v14M301 86h12m-6-6v12" stroke="#ae93c2" stroke-width="3" stroke-linecap="round"/>
+    </svg>
+  </div>
+  <main class="wrap main">
+    <div class="carousel-toolbar" aria-label="Kartlar arasında gezinme">
+      <div class="type-picker"><label for="typeSelect">Soru tipi</label><select id="typeSelect" aria-label="Soru tipine git"></select></div>
+      <div class="carousel-controls"><button class="arrow" id="previous" aria-label="Önceki soru kartı" type="button">←</button><div class="deck-count" id="deckCount" aria-live="polite"></div><button class="arrow" id="next" aria-label="Sonraki soru kartı" type="button">→</button></div>
     </div>
-  </header>
-  <main class="wrap main" id="lesson">
-    <div class="intro-strip"><div><strong>Sunum akışı</strong><p>Bir şık seçmek cevabı göstermez. Çözümü hazır olduğunuzda açın.</p></div><div class="stage-dots" aria-hidden="true"><span>01 · Sor</span><span>02 · Tartış</span><span>03 · Açıkla</span></div></div>
-    <div class="section-label"><h2>Soru türünü seç</h2><span>Her türden yalnızca bir soru</span></div>
-    <nav class="type-nav" id="typeNav" aria-label="Soru tipleri"></nav>
-    <article class="lesson" aria-labelledby="typeTitle">
-      <div class="lesson-header">
-        <div class="type-icon" id="typeIcon" aria-hidden="true"></div>
-        <div class="lesson-heading"><span class="mini-label" id="typeGroup"></span><h2 id="typeTitle"></h2></div>
-        <div class="counter"><strong id="counter"></strong><span>örnek soru</span></div>
-      </div>
-      <div class="lesson-progress" aria-hidden="true"><span id="progressBar"></span></div>
-      <div class="lesson-content">
-        <div class="approach"><div><h3>Bu tipte ne yapıyoruz?</h3><p id="approachText"></p></div><div class="skills" id="skills" aria-label="Gerekli beceriler"></div></div>
-        <span class="question-instruction" id="instruction"></span>
-        <div class="passage" id="passage" hidden></div>
-        <h3 class="stem" id="stem"></h3>
-        <div class="options" id="options" role="group" aria-label="A'dan E'ye cevap seçenekleri"></div>
-        <p class="selection-note" id="selectionNote" role="status">Cevabı sınıfla tartışın; şık seçimi sonucu açıklamaz.</p>
-        <div class="reveal-row"><p>Öğretmen kontrolü · Çözüm siz açana kadar gizlidir.</p><button class="reveal" id="revealButton" type="button" aria-expanded="false" aria-controls="solution">Cevabı ve ayrıntılı çözümü göster</button></div>
-        <section class="solution" id="solution" aria-label="Cevap ve ayrıntılı çözüm" hidden>
-          <div class="solution-top"><span class="answer-badge" id="answerBadge"></span><h3 id="solutionTitle"></h3></div>
-          <h4>Çözüm yolu</h4><p id="rationale"></p>
-          <h4>Diğer şıklar neden elenir?</h4><ul class="why-list" id="whyList"></ul>
+    <nav class="type-nav" id="typeNav" aria-label="Soru kartları"></nav>
+    <section class="deck" id="deck" aria-label="YDS soru kartları" aria-roledescription="carousel">
+      <article class="question-card" id="questionCard" aria-roledescription="soru kartı" aria-label="1 / 10: Kelime Bilgisi">
+        <section class="face face-front" id="frontFace" aria-labelledby="frontTitle">
+          <div class="card-head"><div class="type-icon" id="frontIcon" aria-hidden="true"></div><div><span class="face-label">Ön yüz · Soru</span><h2 id="frontTitle" tabindex="-1"></h2></div><span class="face-badge">5 şık · 1 doğru</span></div>
+          <div class="card-body"><span class="question-instruction" id="instruction" lang="en"></span>
+            <div class="question-layout"><div class="passage" id="passage" hidden><span class="passage-label">Reading passage</span><span id="passageText" lang="en"></span></div><div><h3 class="stem" id="stem" lang="en"></h3><div class="options" id="options" role="group" aria-label="Cevap seçenekleri"></div></div></div>
+            <div class="selection-row"><p class="selection-note" id="selectionNote" role="status"></p><button class="clear" id="clearButton" type="button" hidden>Seçimi temizle</button></div>
+            <div class="card-action"><p>Bir şık seçin, düşüncenizi paylaşın.</p><button class="primary" id="flipButton" type="button" aria-controls="backFace"><span class="turn-icon" aria-hidden="true">↻</span> Kartı çevir · Teknikleri gör</button></div>
+          </div>
         </section>
-      </div>
-      <div class="lesson-footer"><button class="nav-action" id="previous" type="button">← Önceki soru</button><span class="keyboard">Klavyede ← ve → ile geçiş</span><button class="nav-action" id="next" type="button">Sonraki soru →</button></div>
-    </article>
-    <p class="footnote">Sorular öğretim amacıyla özgün olarak hazırlanmıştır; ÖSYM sorusu değildir. Soru türü sırası ve beş şıklı yapı, resmî YDS kitapçığıyla karşılaştırılmıştır.</p>
+        <section class="face face-back" id="backFace" aria-labelledby="backTitle" hidden>
+          <div class="card-head"><div class="type-icon" id="backIcon" aria-hidden="true"></div><div><span class="face-label">Arka yüz · Teknikler</span><h2 id="backTitle" tabindex="-1"></h2></div><span class="face-badge">Çözüm atölyesi</span></div>
+          <div class="card-body"><div class="back-intro"><div><h3>Bu tipte ne yapıyoruz?</h3><p id="approachText"></p></div><div class="skill-block"><span class="skill-label">Gerekli beceriler</span><div class="skills" id="skills"></div></div></div>
+            <ol class="techniques" id="techniques" aria-label="Üç adımda çözüm tekniği"></ol>
+            <div class="pitfall"><strong>Dikkat:</strong><span id="pitfallText"></span></div>
+            <div class="reveal-row"><p id="answerStatus">Teknikler açık. Cevap siz açana kadar gizli.</p><button class="reveal" id="revealButton" type="button" aria-expanded="false" aria-controls="solution">Cevabı ve ayrıntılı çözümü göster</button></div>
+            <section class="solution" id="solution" aria-label="Cevap ve ayrıntılı çözüm" hidden><div class="solution-top"><span class="answer-badge" id="answerBadge"></span><h3 id="solutionTitle"></h3></div><h4>Çözüm yolu</h4><p id="rationale"></p><h4>Diğer şıklar neden elenir?</h4><ul class="why-list" id="whyList"></ul></section>
+            <div class="card-action"><p>Tekniği soruda yeniden deneyin.</p><button class="return" id="returnButton" type="button" aria-controls="frontFace">↶ Ön yüze dön · Soruyu gör</button></div>
+          </div>
+        </section>
+      </article>
+    </section>
+    <div class="deck-footer"><span class="footnote">Sorular öğretim amacıyla özgün hazırlanmıştır; ÖSYM sorusu değildir. Her soru tipinden bir örnek gösterilir.</span><span class="keyboard">← → Kart değiştir · F Kartı çevir · Esc Ön yüze dön</span></div>
+    <noscript><p>Bu soru kartlarını kullanmak için tarayıcınızda JavaScript'i etkinleştirin.</p></noscript>
   </main>
-  <footer><div class="wrap footer-inner"><span><strong>YDS Soru Tipleri</strong> · Sinan Seden</span><a href="https://www.osym.gov.tr/2026yds1-temel-soru-kitapciklarinin-yayimlanmasi-10" target="_blank" rel="noopener noreferrer">ÖSYM soru kitapçığına bak ↗</a></div></footer>
+  <footer><div class="wrap footer-inner"><span>Sinan Seden · YDS Soru Kartları</span><a href="https://dokuman.osym.gov.tr/pdfdokuman/2026/YDS-1/TSK/ing_yd1d05042026.pdf" target="_blank" rel="noopener noreferrer">Resmî YDS örnek kitapçığı ↗</a></div></footer>
   <script>
     const questions = [
       {
@@ -370,122 +392,102 @@
       }
     ];
 
-    const letters = ["A","B","C","D","E"];
-    const typeNav = document.getElementById("typeNav");
-    const optionsEl = document.getElementById("options");
-    const solution = document.getElementById("solution");
-    const revealButton = document.getElementById("revealButton");
-    const selectionNote = document.getElementById("selectionNote");
-    let active = 0;
-    let selected = null;
-    let revealed = false;
 
-    function node(tag, className, content) {
-      const el = document.createElement(tag);
-      if (className) el.className = className;
-      if (content !== undefined) el.textContent = content;
-      return el;
+    const strategies = [
+      {steps:[["Anlamı tahmin et","Şıklara bakmadan boşluğu Türkçe veya İngilizce bir anlamla tamamlayın."],["İpuçlarını birleştir","Gerekçe, sonuç ve olumlu–olumsuz anlamın aynı yöne işaret edip etmediğine bakın."],["Birlikteliği kontrol et","Seçtiğiniz kelimeyi cümleye yerleştirip doğal bir sözcük birlikteliği oluşturduğunu sınayın."]],pitfall:"Tanıdık kelime doğru kelime olmayabilir; bağlamın gerektirdiği anlamı arayın."},
+      {steps:[["İki yargıyı ayır","Boşluğun bağladığı iki cümleyi ayrı ayrı anlamlandırın."],["İlişkiyi adlandır","Neden, karşıtlık, koşul, zaman veya amaç: hangi ilişki kuruluyor?"],["Yapıyı sınayın","Bağlaçtan sonra tam bir cümle mi, isim öbeği mi gelmesi gerektiğini kontrol edin."]],pitfall:"Yalnızca dil bilgisi açısından mümkün olan şıkkı değil, anlam ilişkisini de doğru kuranı seçin."},
+      {steps:[["Bütünü oku","Paragrafın konusu ve yazarın genel düşüncesi hakkında kısa bir fikir edinin."],["Boşluğa yaklaş","Boşluğun öncesindeki ve sonrasındaki cümlelerden anlam ipuçlarını toplayın."],["Yeniden yerleştir","Seçeneği boşluğa koyun; hem cümle yapısına hem de paragrafın akışına uyuyor mu, bakın."]],pitfall:"Tek bir cümleye kapanmayın; doğru ipucu bazen bir sonraki cümlededir."},
+      {steps:[["Bağlacı yakala","Verilen bölümün hangi tür devam beklediğini belirleyin."],["Bağları izle","Özne, zamir, zaman ve konu devamlılığını her şıkta kontrol edin."],["Cümleyi tamamla","İki bölümü tek bir cümle olarak okuyup mantıksal uyumu sınayın."]],pitfall:"Konuya yakın bir bilgi, verilen cümlenin mantıklı devamı olmak zorunda değildir."},
+      {steps:[["Anlamı parçalara ayır","Ana yargıyı, yan cümleleri ve bunlar arasındaki ilişkileri belirleyin."],["Kritik ayrıntıları koru","Olumsuzluk, zaman, miktar ve olasılık ifadelerini tek tek eşleştirin."],["Eksik ve ek bilgiyi ele","Şıkkın kaynak cümleden bir şey çıkarıp çıkarmadığını veya yeni bilgi ekleyip eklemediğini kontrol edin."]],pitfall:"Akıcı bir Türkçe cümle yeterli değildir; kaynak cümlenin anlamını eksiksiz korumalıdır."},
+      {steps:[["Ana iddiayı bul","Metnin tamamında tekrar tekrar geliştirilen düşünceyi bir cümlede özetleyin."],["Kanıta dön","Şıkkın metindeki hangi cümlelerle desteklendiğini belirleyin."],["Kapsamı karşılaştır","Bir ayrıntıyı ana fikir gibi sunan veya metinden daha geniş iddia taşıyan şıkları eleyin."]],pitfall:"Ana fikir sorusunda tek bir doğru ayrıntıyı değil, metnin bütününü kapsayan düşünceyi arayın."},
+      {steps:[["Konuşma amacını bul","Boşluktan önceki söz bir soru mu, öneri mi, itiraz mı?"],["Sonraki tepkiyi oku","Boşluktan sonra gelen onay, itiraz veya açıklamanın neye yanıt olacağını düşünün."],["Karşılıklı uyumu sınayın","Seçenek hem önceki söze yanıt vermeli hem de sonraki tepkiyi doğal kılmalı."]],pitfall:"Yalnızca önceki cümleye uyan bir yanıt, sonraki konuşmayı açıklamıyorsa elenir."},
+      {steps:[["Temel anlamı çıkar","Kimin ne yaptığını ve olayların sırasını belirleyin."],["Sınırları işaretle","Only, until, unless, no longer gibi anlamı daraltan ifadeleri koruyun."],["Anlamı karşılaştır","Kelime benzerliğine değil, olay ve koşulların aynı olup olmadığına bakın."]],pitfall:"Aynı kelimeleri kullanan şık, zaman veya neden ilişkisini değiştiriyorsa yakın anlam değildir."},
+      {steps:[["İki tarafı oku","Boşluğun öncesi ve sonrasındaki düşünceleri kısa ifadelerle özetleyin."],["Köprüyü kur","Karşıtlık, örnek, sonuç ve gönderim ifadelerinin ihtiyaç duyduğu düşünceyi bulun."],["Akışı yeniden oku","Seçtiğiniz cümleyi yerleştirip üç cümlenin birlikte doğal ilerlediğini kontrol edin."]],pitfall:"Doğru cümle boşluğun yalnızca bir tarafına değil, iki tarafına da bağlanmalıdır."},
+      {steps:[["Ortak konuyu belirle","Paragrafın hangi düşünceyi geliştirdiğini bulun."],["Cümle bağlarını izle","Her cümlenin önceki bilgiyi nasıl sürdürdüğünü ve zamirlerin neye döndüğünü kontrol edin."],["Çıkarıp dene","Şüphelendiğiniz cümleyi atlayın; kalan paragraf daha tutarlı ilerliyor mu, bakın."]],pitfall:"Bir cümlenin yanlış bilgi içermesi gerekmez; doğru bilgi de paragrafın akışını bozabilir."}
+    ];
+    const letters=["A","B","C","D","E"];
+    const $=id=>document.getElementById(id);
+    const card=$("questionCard"),front=$("frontFace"),back=$("backFace"),solution=$("solution");
+    const selections=Array(questions.length).fill(null);
+    const reduceMotion=window.matchMedia("(prefers-reduced-motion: reduce)");
+    let active=0,side="front",revealed=false,flipToken=0,flipping=false;
+    function node(tag,className,text){const el=document.createElement(tag);if(className)el.className=className;if(text!==undefined)el.textContent=text;return el}
+    function paintSelection(){
+      const selected=selections[active];
+      Array.from($("options").children).forEach((button,i)=>{button.classList.toggle("selected",i===selected);button.setAttribute("aria-pressed",String(i===selected))});
+      $("selectionNote").textContent=selected===null?"Şık seçimi cevabı göstermez.":"Seçilen şık: "+letters[selected]+". Cevap hâlâ gizli.";
+      $("clearButton").hidden=selected===null;
     }
-    function renderNav() {
-      typeNav.replaceChildren();
-      questions.forEach(function(q,i){
-        const button = node("button","type-button");
-        button.type = "button";
-        button.setAttribute("aria-label",(i+1)+". soru tipi: "+q.title);
-        if(i===active) button.setAttribute("aria-current","step");
-        button.append(node("b","",String(i+1).padStart(2,"0")),node("span","",q.short));
-        button.addEventListener("click",function(){show(i)});
-        typeNav.append(button);
-      });
+    function hideSolution(){
+      revealed=false;solution.hidden=true;$("revealButton").setAttribute("aria-expanded","false");$("revealButton").textContent="Cevabı ve ayrıntılı çözümü göster";
+      $("answerStatus").textContent="Teknikler açık. Cevap siz açana kadar gizli.";
     }
-    function paintOptions() {
-      Array.from(optionsEl.children).forEach(function(button,i){
-        button.classList.toggle("selected",selected===i && !revealed);
-        button.classList.toggle("correct",revealed && i===questions[active].answer);
-        button.classList.toggle("incorrect",revealed && selected===i && i!==questions[active].answer);
-        button.setAttribute("aria-pressed",String(selected===i));
-      });
+    function setSide(nextSide){
+      side=nextSide;front.hidden=side!=="front";back.hidden=side!=="back";hideSolution();
+      card.setAttribute("aria-label",(active+1)+" / "+questions.length+": "+questions[active].title+" — "+(side==="front"?"soru":"teknikler"));
     }
-    function show(index) {
-      if(index<0 || index>=questions.length) return;
-      active=index; selected=null; revealed=false;
-      const q=questions[index];
-      document.documentElement.style.setProperty("--accent",q.accent);
-      document.documentElement.style.setProperty("--tint",q.tint);
-      document.getElementById("typeTitle").textContent=q.title;
-      document.getElementById("typeGroup").textContent=q.group;
-      document.getElementById("typeIcon").textContent=q.icon;
-      document.getElementById("counter").textContent=String(index+1).padStart(2,"0")+" / "+questions.length;
-      document.getElementById("progressBar").style.width=((index+1)/questions.length*100)+"%";
-      document.getElementById("approachText").textContent=q.approach;
-      document.getElementById("instruction").textContent=q.instruction;
-      document.getElementById("stem").textContent=q.stem;
-      const passage=document.getElementById("passage");
-      passage.hidden=!q.passage;
-      passage.textContent=q.passage||"";
-      const skills=document.getElementById("skills");
-      skills.replaceChildren();
-      q.skills.forEach(function(skill){skills.append(node("span","skill",skill))});
-      optionsEl.replaceChildren();
-      q.options.forEach(function(option,i){
-        const button=node("button","option");
-        button.type="button";
-        button.append(node("span","letter",letters[i]),node("span","option-text",option));
-        button.addEventListener("click",function(){
-          selected=i;
-          paintOptions();
-          selectionNote.textContent=revealed
-            ? (i===q.answer ? "Doğru şık seçildi." : "Seçilen şık: "+letters[i]+". Doğru cevap: "+letters[q.answer]+".")
-            : "Seçilen şık: "+letters[i]+". Cevabı açmadan sınıfla tartışabilirsiniz.";
-        });
-        optionsEl.append(button);
-      });
-      selectionNote.textContent="Cevabı sınıfla tartışın; şık seçimi sonucu açıklamaz.";
-      solution.hidden=true;
-      revealButton.setAttribute("aria-expanded","false");
-      revealButton.textContent="Cevabı ve ayrıntılı çözümü göster";
-      document.getElementById("previous").disabled=index===0;
-      document.getElementById("next").disabled=index===questions.length-1;
-      renderNav();
+    function focusCard(){ $(side==="front"?"frontTitle":"backTitle").focus({preventScroll:true}); }
+    function revealSolution(){
+      revealed=!revealed;solution.hidden=!revealed;$("revealButton").setAttribute("aria-expanded",String(revealed));$("revealButton").textContent=revealed?"Cevabı ve çözümü gizle":"Cevabı ve ayrıntılı çözümü göster";
+      if(!revealed){$("answerStatus").textContent="Teknikler açık. Cevap siz açana kadar gizli.";return}
+      const q=questions[active],selected=selections[active];
+      $("answerBadge").textContent=letters[q.answer];$("solutionTitle").textContent="Doğru cevap: "+letters[q.answer];$("rationale").textContent=q.rationale;
+      $("answerStatus").textContent=selected===null?"Doğru cevap ve tüm şıkların açıklaması aşağıda.":selected===q.answer?"Seçtiğiniz "+letters[selected]+" şıkkı doğru.":"Seçilen şık: "+letters[selected]+". Doğru cevap: "+letters[q.answer]+".";
+      $("whyList").replaceChildren();letters.forEach((letter,i)=>{if(i===q.answer)return;const li=node("li");li.append(node("strong","",letter+" · "),document.createTextNode(q.wrong[letter]));$("whyList").append(li)});
     }
-    function toggleSolution() {
-      revealed=!revealed;
-      const q=questions[active];
-      solution.hidden=!revealed;
-      revealButton.setAttribute("aria-expanded",String(revealed));
-      revealButton.textContent=revealed?"Çözümü gizle":"Cevabı ve ayrıntılı çözümü göster";
-      if(revealed){
-        document.getElementById("answerBadge").textContent=letters[q.answer];
-        document.getElementById("solutionTitle").textContent="Doğru cevap: "+letters[q.answer];
-        document.getElementById("rationale").textContent=q.rationale;
-        const list=document.getElementById("whyList");
-        list.replaceChildren();
-        letters.forEach(function(letter,i){
-          if(i===q.answer) return;
-          const li=node("li");
-          li.append(node("strong","",letter+" · "),document.createTextNode(q.wrong[letter]));
-          list.append(li);
-        });
+    function renderNav(){
+      Array.from($("typeNav").children).forEach((button,i)=>{if(i===active)button.setAttribute("aria-current","step");else button.removeAttribute("aria-current")});
+      $("typeSelect").value=String(active);$("deckCount").replaceChildren(node("strong","",String(active+1).padStart(2,"0")),node("span",""," / "+questions.length));
+      $("previous").disabled=active===0;$("next").disabled=active===questions.length-1;
+    }
+    function show(index,move=false){
+      if(index<0||index>=questions.length)return;
+      const direction=index>active?1:-1;
+      flipToken++;flipping=false;card.getAnimations().forEach(animation=>animation.cancel());active=index;
+      const q=questions[index],strategy=strategies[index];
+      document.documentElement.style.setProperty("--accent",q.accent);document.documentElement.style.setProperty("--tint",q.tint);
+      $("frontTitle").textContent=q.title;$("backTitle").textContent=q.title;$("frontIcon").textContent=q.icon;$("backIcon").textContent=q.icon;
+      $("instruction").textContent=q.instruction;$("stem").textContent=q.stem;$("passage").hidden=!q.passage;$("passageText").textContent=q.passage||"";front.classList.toggle("has-passage",!!q.passage);
+      $("options").replaceChildren();$("options").classList.toggle("long",q.options.some(option=>option.length>90));
+      q.options.forEach((option,i)=>{const button=node("button","option");button.type="button";button.lang=index===4?"tr":"en";button.append(node("span","letter",letters[i]),node("span","option-text",option));button.addEventListener("click",()=>{selections[active]=selections[active]===i?null:i;paintSelection()});$("options").append(button)});
+      $("approachText").textContent=q.approach;$("skills").replaceChildren();q.skills.forEach(skill=>$("skills").append(node("span","skill",skill)));
+      $("techniques").replaceChildren();strategy.steps.forEach(([title,text])=>{const li=node("li");li.append(node("strong","",title),node("p","",text));$("techniques").append(li)});$("pitfallText").textContent=strategy.pitfall;
+      setSide("front");paintSelection();renderNav();
+      if(move){
+        if(!reduceMotion.matches)card.animate([{opacity:.35,transform:"translateX("+(direction*28)+"px) rotate("+(direction*.35)+"deg)"},{opacity:1,transform:"translateX(0) rotate(0deg)"}],{duration:230,easing:"ease-out"});
+        focusCard();$("deck").scrollIntoView({block:"start",behavior:reduceMotion.matches?"instant":"smooth"});
       }
-      paintOptions();
-      if(selected!==null) selectionNote.textContent=revealed
-        ? (selected===q.answer?"Doğru şık seçildi.":"Seçilen şık: "+letters[selected]+". Doğru cevap: "+letters[q.answer]+".")
-        : "Seçilen şık: "+letters[selected]+". Cevabı açmadan sınıfla tartışabilirsiniz.";
     }
-    revealButton.addEventListener("click",toggleSolution);
-    document.getElementById("previous").addEventListener("click",function(){show(active-1)});
-    document.getElementById("next").addEventListener("click",function(){show(active+1)});
-    document.getElementById("modeButton").addEventListener("click",function(){
-      const on=document.body.classList.toggle("presenting");
-      this.setAttribute("aria-pressed",String(on));
-      this.textContent=on?"Sunum modundan çık":"Sunum modu";
+    async function flipCard(){
+      if(flipping)return;flipping=true;const token=++flipToken,nextSide=side==="front"?"back":"front";
+      if(!reduceMotion.matches){
+        try{await card.animate([{transform:"rotateY(0deg)",opacity:1},{transform:"rotateY(85deg)",opacity:.6}],{duration:140,easing:"ease-in",fill:"forwards"}).finished}catch{};
+        if(token!==flipToken)return;
+      }
+      card.getAnimations().forEach(animation=>animation.cancel());setSide(nextSide);
+      if(!reduceMotion.matches)card.animate([{transform:"rotateY(-85deg)",opacity:.6},{transform:"rotateY(0deg)",opacity:1}],{duration:190,easing:"ease-out"});
+      flipping=false;focusCard();$("deck").scrollIntoView({block:"start",behavior:reduceMotion.matches?"instant":"smooth"});
+    }
+    questions.forEach((q,i)=>{
+      const button=node("button","type-button");button.type="button";button.setAttribute("aria-label",(i+1)+". soru kartı: "+q.title);button.title=q.title;button.append(node("b","",String(i+1).padStart(2,"0")),node("span","",q.short));button.addEventListener("click",()=>show(i,true));$("typeNav").append(button);
+      const option=node("option","",(i+1)+" · "+q.title);option.value=String(i);$("typeSelect").append(option);
     });
-    document.addEventListener("keydown",function(e){
-      if(e.altKey||e.ctrlKey||e.metaKey||e.target.closest("input,textarea,select")) return;
-      if(e.key==="ArrowRight"){e.preventDefault();show(active+1)}
-      if(e.key==="ArrowLeft"){e.preventDefault();show(active-1)}
-      if(e.key==="Escape"&&document.body.classList.contains("presenting")) document.getElementById("modeButton").click();
+    $("typeSelect").addEventListener("change",e=>show(Number(e.target.value),true));
+    $("previous").addEventListener("click",()=>show(active-1,true));$("next").addEventListener("click",()=>show(active+1,true));
+    $("flipButton").addEventListener("click",flipCard);$("returnButton").addEventListener("click",flipCard);$("revealButton").addEventListener("click",revealSolution);
+    $("clearButton").addEventListener("click",()=>{selections[active]=null;paintSelection()});
+    $("modeButton").addEventListener("click",function(){const on=document.body.classList.toggle("presenting");this.setAttribute("aria-pressed",String(on));this.textContent=on?"Sunumdan çık":"Sunum modu";$("deck").scrollIntoView({block:"start",behavior:"instant"})});
+    document.addEventListener("keydown",e=>{
+      if(e.altKey||e.ctrlKey||e.metaKey||e.target.closest("input,textarea,select,[contenteditable=true]"))return;
+      if(e.key==="ArrowRight"){e.preventDefault();show(active+1,true)}
+      if(e.key==="ArrowLeft"){e.preventDefault();show(active-1,true)}
+      if(e.key.toLowerCase()==="f"){e.preventDefault();flipCard()}
+      if(e.key==="Escape"){if(side==="back")flipCard();else if(document.body.classList.contains("presenting"))$("modeButton").click()}
     });
+    let touchStart=null;
+    card.addEventListener("touchstart",e=>{if(e.touches.length!==1||e.target.closest("button,a,select")){touchStart=null;return}touchStart={x:e.touches[0].clientX,y:e.touches[0].clientY}},{passive:true});
+    card.addEventListener("touchend",e=>{if(!touchStart||e.changedTouches.length!==1)return;const dx=e.changedTouches[0].clientX-touchStart.x,dy=e.changedTouches[0].clientY-touchStart.y;touchStart=null;if(Math.abs(dx)>85&&Math.abs(dx)>Math.abs(dy)*1.7)show(active+(dx<0?1:-1),true)},{passive:true});
+    card.addEventListener("touchcancel",()=>touchStart=null,{passive:true});
     show(0);
   </script>
 </body>
