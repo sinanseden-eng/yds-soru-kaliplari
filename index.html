@@ -1,436 +1,492 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YDS İnteraktif Soru Tipi Rehberi</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        body {
-            box-sizing: border-box;
-            font-family: 'Inter', sans-serif;
-        }
-        
-        .gradient-bg {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        }
-        
-        .card-hover {
-            transition: all 0.3s ease;
-        }
-        
-        .card-header-clickable {
-             cursor: pointer;
-        }
-        
-        .card-hover:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-        }
-        
-        .progress-bar {
-            transition: width 0.8s ease-in-out;
-        }
-        
-        .question-type-card {
-            background: linear-gradient(145deg, #ffffff, #f8fafc);
-            border: 1px solid #e2e8f0;
-        }
-
-        .details-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.7s ease-out, padding 0.5s ease-out;
-            padding-top: 0;
-            padding-bottom: 0;
-        }
-
-        .details-content.open {
-            max-height: 2000px; /* Adjust as needed for content */
-            padding-top: 1.5rem; /* 24px */
-            padding-bottom: 1.5rem; /* 24px */
-        }
-        
-        .chevron {
-            transition: transform 0.3s ease;
-        }
-        
-        .chevron.open {
-            transform: rotate(90deg);
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        .animate-fade-in {
-            animation: fadeInUp 0.6s ease-out forwards;
-        }
-        
-        .option-btn {
-            cursor: pointer;
-            transition: background-color 0.2s;
-        }
-        .option-btn.selected {
-            font-weight: 600;
-        }
-        .option-btn.correct {
-            border-color: #22c55e;
-            background-color: #f0fdf4;
-        }
-        .option-btn.incorrect {
-            border-color: #ef4444;
-            background-color: #fef2f2;
-        }
-    </style>
-     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#10243d">
+  <meta name="description" content="On YDS soru tipini birer özgün, beş seçenekli örnekle keşfedin. Cevap ve ayrıntılı çözüm öğretmen istediğinde açılır.">
+  <title>YDS Soru Tipleri | Sunum Rehberi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink:#10243d; --muted:#617189; --blue:#365bce; --paper:#f5f7fb;
+      --white:#fff; --line:#e2e8f2; --gold:#ffbf61; --good:#147b60;
+      --accent:#365bce; --tint:#e9eeff;
+    }
+    *,*::before,*::after{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.55 "DM Sans",sans-serif}
+    button{font:inherit;cursor:pointer}
+    a{color:inherit}
+    :focus-visible{outline:3px solid #e5a63b;outline-offset:3px}
+    .wrap{width:min(1120px,calc(100% - 36px));margin-inline:auto}
+    .skip{position:absolute;top:-80px;left:12px;z-index:20;background:white;padding:10px 14px;border-radius:10px}
+    .skip:focus{top:10px}
+    .topbar{position:sticky;top:0;z-index:10;background:rgba(255,255,255,.96);border-bottom:1px solid var(--line);backdrop-filter:blur(16px)}
+    .top-inner{min-height:70px;display:flex;align-items:center;gap:17px}
+    .brand{display:inline-flex;align-items:center;gap:10px;font:800 16px/1.1 Manrope,sans-serif;text-decoration:none;white-space:nowrap}
+    .brand-mark{display:grid;place-items:center;background:var(--ink);color:white;width:39px;height:39px;border-radius:12px;font-size:18px}
+    .brand small{display:block;color:var(--blue);font:800 10px/1.3 "DM Sans",sans-serif;letter-spacing:.14em;margin-top:3px}
+    .back{margin-left:auto;text-decoration:none;font-size:13px;font-weight:800;color:#52627b}
+    .back:hover{color:var(--blue)}
+    .mode{border:1px solid #ccd6e7;background:#f1f4fc;color:#2448aa;border-radius:11px;padding:10px 15px;font-size:12px;font-weight:800;white-space:nowrap}
+    .mode[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:white}
+    .hero{background:#10243d;color:white;position:relative;overflow:hidden}
+    .hero::after{content:"";position:absolute;width:720px;height:720px;right:-260px;top:-410px;border-radius:50%;border:1px solid rgba(255,255,255,.1);box-shadow:0 0 0 80px rgba(255,255,255,.025),0 0 0 165px rgba(255,255,255,.02)}
+    .hero-inner{padding:47px 0 51px;position:relative;z-index:1;display:flex;justify-content:space-between;align-items:center;gap:30px}
+    .eyebrow{font-weight:800;letter-spacing:.16em;font-size:11px;text-transform:uppercase;color:#83e0dc}
+    h1,h2,h3,p{margin-top:0}
+    h1,h2,h3{font-family:Manrope,sans-serif;letter-spacing:-.045em}
+    h1{font-size:clamp(32px,4.4vw,51px);line-height:1.13;margin:12px 0}
+    h1 em{font-style:normal;color:var(--gold)}
+    .hero p{color:#cbd7e8;max-width:610px;margin:0;font-size:15px}
+    .hero-graphic{flex:0 0 210px;height:150px;position:relative;display:grid;place-items:center}
+    .hero-graphic::before{content:"?";display:grid;place-items:center;font:800 112px/1 Manrope,sans-serif;color:var(--gold);width:140px;height:140px;border:9px solid rgba(255,255,255,.12);border-radius:36px;transform:rotate(-8deg);background:#3154ad;box-shadow:0 20px 35px rgba(0,0,0,.15)}
+    .hero-graphic span{position:absolute;right:0;bottom:-2px;background:white;color:#254071;padding:7px 13px;border-radius:9px;font-size:11px;font-weight:800;transform:rotate(5deg);box-shadow:0 10px 25px rgba(0,0,0,.15)}
+    .main{padding:27px 0 70px}
+    .intro-strip{display:flex;align-items:center;justify-content:space-between;gap:20px;background:white;border:1px solid var(--line);border-radius:16px;padding:17px 21px;box-shadow:0 10px 30px rgba(24,49,85,.05)}
+    .intro-strip strong{font-size:13px}
+    .intro-strip p{font-size:12px;color:var(--muted);margin:2px 0 0}
+    .stage-dots{display:flex;gap:7px;white-space:nowrap}
+    .stage-dots span{padding:7px 10px;border-radius:9px;background:#eef2fa;color:#49607d;font-size:11px;font-weight:800}
+    .section-label{display:flex;justify-content:space-between;align-items:end;gap:20px;margin:30px 0 12px}
+    .section-label h2{font-size:21px;margin:0}
+    .section-label span{color:var(--muted);font-size:12px}
+    .type-nav{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:9px}
+    .type-button{min-height:60px;display:flex;align-items:center;gap:9px;padding:9px 11px;text-align:left;border:1px solid #dde5f0;border-radius:12px;background:white;color:#53657e}
+    .type-button:hover{border-color:#8296d8;background:#f9faff}
+    .type-button[aria-current="step"]{border-color:var(--accent);background:var(--tint);color:var(--ink);box-shadow:inset 0 0 0 1px var(--accent)}
+    .type-button b{display:grid;place-items:center;flex:0 0 28px;height:28px;border-radius:8px;background:#eef2f9;color:#53657e;font:800 11px Manrope,sans-serif}
+    .type-button[aria-current="step"] b{background:var(--accent);color:white}
+    .type-button span{font-size:11px;font-weight:800;line-height:1.25}
+    .lesson{margin-top:20px;background:white;border:1px solid var(--line);border-radius:23px;overflow:hidden;box-shadow:0 20px 50px rgba(24,49,85,.075)}
+    .lesson-header{display:flex;align-items:center;gap:16px;padding:26px 31px;border-bottom:1px solid var(--line)}
+    .type-icon{display:grid;place-items:center;flex:0 0 54px;height:54px;background:var(--tint);color:var(--accent);border-radius:15px;font:800 29px Manrope,sans-serif}
+    .lesson-heading{min-width:0}
+    .mini-label{color:var(--accent);font-size:10px;font-weight:800;letter-spacing:.14em;text-transform:uppercase}
+    .lesson h2{font-size:clamp(23px,2.6vw,31px);margin:2px 0 0;line-height:1.25}
+    .counter{margin-left:auto;white-space:nowrap;text-align:right;color:var(--muted);font-size:11px;font-weight:800}
+    .counter strong{display:block;color:var(--ink);font:800 18px Manrope,sans-serif}
+    .lesson-progress{height:4px;background:#e9eef7}
+    .lesson-progress span{display:block;height:100%;background:var(--accent);transition:width .25s ease}
+    .lesson-content{padding:27px 31px 30px}
+    .approach{display:grid;grid-template-columns:1fr auto;gap:18px;align-items:center;background:var(--tint);border:1px solid color-mix(in srgb,var(--accent) 20%,white);border-radius:15px;padding:17px 20px;margin-bottom:26px}
+    .approach h3{font-size:13px;margin-bottom:4px;color:var(--accent)}
+    .approach p{font-size:13px;line-height:1.5;margin:0;max-width:650px}
+    .skills{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:6px;max-width:340px}
+    .skill{border-radius:50px;padding:6px 10px;font-size:11px;font-weight:800;white-space:nowrap}
+    .skill:nth-child(3n+1){background:#e4eafa;color:#2448ac}
+    .skill:nth-child(3n+2){background:#ddf5ef;color:#0c715a}
+    .skill:nth-child(3n){background:#fff0d6;color:#8d570c}
+    .question-instruction{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:#687891;margin-bottom:15px}
+    .passage{white-space:pre-line;border-left:4px solid var(--accent);background:#f7f9fd;border-radius:0 12px 12px 0;padding:18px 20px;margin-bottom:20px;font-size:15px;line-height:1.68;color:#26384f}
+    .stem{font:700 clamp(17px,2vw,21px)/1.5 Manrope,sans-serif;letter-spacing:-.025em;margin:0 0 21px;white-space:pre-line}
+    .options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+    .option{border:1px solid #dbe3ef;background:white;border-radius:12px;padding:12px 14px;display:flex;align-items:flex-start;gap:12px;text-align:left;color:#26384f;min-height:58px;line-height:1.45}
+    .option:hover{border-color:#7e95dc;background:#f8faff}
+    .option .letter{display:grid;place-items:center;flex:0 0 27px;height:27px;border-radius:8px;background:#edf1f8;color:#556b88;font-size:11px;font-weight:800}
+    .option .option-text{font-size:13px;padding-top:3px}
+    .option.selected{border-color:var(--blue);background:#eef2ff;box-shadow:inset 0 0 0 1px var(--blue)}
+    .option.selected .letter{background:var(--blue);color:white}
+    .option.correct{border-color:#43a483;background:#e8f8f1;box-shadow:inset 0 0 0 1px #43a483}
+    .option.correct .letter{background:var(--good);color:white}
+    .option.incorrect{border-color:#d38379;background:#fff1ef}
+    .option.incorrect .letter{background:#b34f46;color:white}
+    .selection-note{font-size:12px;color:var(--muted);min-height:24px;margin:11px 0 0}
+    .reveal-row{display:flex;align-items:center;justify-content:space-between;gap:12px;border-top:1px solid var(--line);padding-top:19px;margin-top:15px}
+    .reveal-row p{font-size:12px;color:var(--muted);margin:0}
+    .reveal{background:var(--ink);color:white;border:0;border-radius:11px;padding:12px 17px;font-size:12px;font-weight:800;white-space:nowrap}
+    .reveal:hover{background:#244269}
+    .solution[hidden]{display:none}
+    .solution{margin-top:20px;border:1px solid #b7dfce;background:#f3fbf7;border-radius:17px;padding:22px}
+    .solution-top{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+    .answer-badge{display:grid;place-items:center;width:40px;height:40px;border-radius:11px;background:var(--good);color:white;font:800 19px Manrope,sans-serif}
+    .solution h3{margin:0;font-size:19px;color:#17684f}
+    .solution h4{font-size:12px;text-transform:uppercase;letter-spacing:.09em;margin:19px 0 8px;color:#386451}
+    .solution p{font-size:14px;margin:0;color:#21433a}
+    .why-list{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+    .why-list li{font-size:12px;line-height:1.5;background:white;border:1px solid #d8e9df;border-radius:10px;padding:10px 12px}
+    .why-list strong{color:#2b6d55}
+    .lesson-footer{border-top:1px solid var(--line);background:#fbfcff;padding:18px 31px;display:flex;justify-content:space-between;align-items:center;gap:15px}
+    .nav-action{border:1px solid #d5dfed;border-radius:11px;background:white;color:#335176;padding:10px 15px;font-size:12px;font-weight:800}
+    .nav-action:hover:not(:disabled){border-color:var(--blue);color:var(--blue)}
+    .nav-action:disabled{opacity:.35;cursor:not-allowed}
+    .keyboard{font-size:11px;color:#8694a7;text-align:center}
+    .footnote{margin:17px 4px 0;color:#7a899c;font-size:11px}
+    footer{border-top:1px solid var(--line);padding:27px 0 35px;color:#687891;font-size:12px}
+    .footer-inner{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+    footer strong{color:var(--ink)}
+    footer a{color:var(--blue);font-weight:800}
+    body.presenting .hero,body.presenting .intro-strip,body.presenting .section-label,body.presenting .footnote,body.presenting footer{display:none}
+    body.presenting .main{padding-top:18px;padding-bottom:24px}
+    body.presenting .type-nav{grid-template-columns:repeat(10,minmax(0,1fr));gap:6px}
+    body.presenting .type-button{justify-content:center;min-height:38px;padding:4px}
+    body.presenting .type-button span{display:none}
+    body.presenting .lesson{margin-top:12px}
+    body.presenting .lesson-content{padding:28px 38px 32px}
+    body.presenting .passage{font-size:19px}
+    body.presenting .stem{font-size:24px}
+    body.presenting .option .option-text{font-size:17px}
+    body.presenting .approach p{font-size:16px}
+    @media(max-width:850px){
+      .type-nav{grid-template-columns:repeat(5,minmax(0,1fr))}
+      .type-button{min-height:53px}
+      .type-button span{font-size:10px}
+      .approach{grid-template-columns:1fr}
+      .skills{justify-content:flex-start;max-width:none}
+      body.presenting .type-nav{grid-template-columns:repeat(10,minmax(0,1fr))}
+    }
+    @media(max-width:650px){
+      .wrap{width:min(100% - 24px,1120px)}
+      .top-inner{min-height:62px;gap:9px}
+      .brand{font-size:12px}
+      .brand-mark{width:31px;height:31px;font-size:14px}
+      .brand small{font-size:8px}
+      .back{font-size:11px}
+      .mode{padding:8px 9px;font-size:10px}
+      .hero-inner{padding:37px 0}
+      .hero-graphic{display:none}
+      .stage-dots{display:none}
+      .intro-strip{padding:13px 15px}
+      .type-nav{display:flex;overflow-x:auto;padding-bottom:7px;scrollbar-width:thin}
+      .type-button{flex:0 0 128px}
+      .lesson-header{padding:19px 17px;gap:10px}
+      .type-icon{flex-basis:40px;height:40px;font-size:22px}
+      .counter strong{font-size:14px}
+      .lesson-content{padding:18px 16px}
+      .approach{padding:13px 14px;margin-bottom:19px}
+      .options{grid-template-columns:1fr}
+      .option{min-height:49px}
+      .passage{font-size:13px;padding:14px}
+      .stem{font-size:17px}
+      .reveal-row{align-items:stretch;flex-direction:column}
+      .reveal-row p{order:2}
+      .why-list{grid-template-columns:1fr}
+      .lesson-footer{padding:14px 16px}
+      .keyboard{display:none}
+      body.presenting .type-nav{display:flex}
+      body.presenting .type-button{flex:0 0 36px}
+      body.presenting .lesson-content{padding:18px 16px}
+      body.presenting .passage{font-size:15px}
+      body.presenting .stem{font-size:19px}
+      body.presenting .option .option-text{font-size:14px}
+      body.presenting .approach p{font-size:13px}
+    }
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition-duration:.01ms!important;animation-duration:.01ms!important}}
+    @media print{
+      .topbar,.hero,.intro-strip,.type-nav,.lesson-footer,.reveal-row,.selection-note,.footnote,footer{display:none!important}
+      body{background:white}
+      .main{padding:0}
+      .lesson{border:0;box-shadow:none;margin:0}
+      .lesson-content{padding:16px 0}
+      .solution[hidden]{display:block}
+      .options{grid-template-columns:1fr 1fr}
+    }
+  </style>
 </head>
-<body class="bg-gray-50 min-h-full">
-    <!-- Header -->
-    <header class="gradient-bg text-white py-8 px-4">
-        <div class="max-w-6xl mx-auto text-center">
-            <h1 class="text-4xl font-bold mb-4">📚 YDS İnteraktif Soru Tipi Rehberi</h1>
-            <p class="text-xl opacity-90">Soru Tipleri, Stratejiler ve Örnek Çözümler</p>
-        </div>
-    </header>
-
-    <!-- Question Types Grid -->
-    <section class="py-8 px-4">
-        <div class="max-w-6xl mx-auto">
-            <h2 class="text-3xl font-bold text-center mb-4 text-gray-800">Soru Tipleri Detayları</h2>
-            <p class="text-center text-lg text-indigo-600 font-semibold mb-8">Örnek soru, çözüm ve stratejiler için soru kutularına tıklayınız.</p>
-            
-            <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3" id="questionGrid">
-                <!-- Question cards will be generated by JavaScript -->
-            </div>
-        </div>
-    </section>
-    
-    <!-- General Success Tips -->
-    <section class="py-12 px-4 gradient-bg">
-        <div class="max-w-4xl mx-auto text-white">
-            <h2 class="text-3xl font-bold text-center mb-8">🏆 Sınav Başarısı İçin 5 Altın Kural</h2>
-            <div class="space-y-6">
-                <!-- Rule 1 -->
-                <div class="bg-white bg-opacity-10 rounded-lg p-6 animate-fade-in" style="animation-delay: 0.1s;">
-                    <h3 class="text-xl font-semibold mb-3 flex items-center"><span class="text-2xl mr-3">1.</span> Kelime Hazinenizi Sürekli Geliştirin</h3>
-                    <p class="text-sm opacity-90">YDS/YDT, temel olarak kelime bilgisini ölçer. Her gün düzenli olarak akademik kelime çalışın. Kelimeleri tek başlarına değil, cümle içindeki kullanımlarıyla (collocations) öğrenmeye odaklanın.</p>
-                </div>
-                <!-- Rule 2 -->
-                <div class="bg-white bg-opacity-10 rounded-lg p-6 animate-fade-in" style="animation-delay: 0.2s;">
-                     <h3 class="text-xl font-semibold mb-3 flex items-center"><span class="text-2xl mr-3">2.</span> Bol Bol Okuma Yapın</h3>
-                     <p class="text-sm opacity-90">Sınavın en büyük bölümü okuduğunu anlama üzerinedir. Her gün İngilizce makaleler, haberler veya kısa akademik metinler okuyarak okuma hızınızı ve anlama becerinizi artırın.</p>
-                </div>
-                 <!-- Rule 3 -->
-                <div class="bg-white bg-opacity-10 rounded-lg p-6 animate-fade-in" style="animation-delay: 0.3s;">
-                     <h3 class="text-xl font-semibold mb-3 flex items-center"><span class="text-2xl mr-3">3.</span> Gramer Konularına Hakim Olun</h3>
-                     <p class="text-sm opacity-90">Özellikle bağlaçlar, zaman uyumu (tense agreement) ve yan cümle yapıları (clauses) gibi konular, sadece gramer sorularında değil, tüm sınav genelinde karşınıza çıkacaktır. Bu konuları sağlam bir şekilde öğrenin.</p>
-                </div>
-                 <!-- Rule 4 -->
-                <div class="bg-white bg-opacity-10 rounded-lg p-6 animate-fade-in" style="animation-delay: 0.4s;">
-                     <h3 class="text-xl font-semibold mb-3 flex items-center"><span class="text-2xl mr-3">4.</span> Soru Tiplerine Özgü Stratejiler Geliştirin</h3>
-                     <p class="text-sm opacity-90">Her soru tipinin kendine özgü bir mantığı ve çözüm tekniği vardır. Bu rehberdeki gibi stratejileri öğrenip, her soru tipi için bolca pratik yaparak kendi çözüm yönteminizi geliştirin.</p>
-                </div>
-                 <!-- Rule 5 -->
-                <div class="bg-white bg-opacity-10 rounded-lg p-6 animate-fade-in" style="animation-delay: 0.5s;">
-                     <h3 class="text-xl font-semibold mb-3 flex items-center"><span class="text-2xl mr-3">5.</span> Zaman Yönetimi ve Deneme Sınavı Çözün</h3>
-                     <p class="text-sm opacity-90">Bilginizi sınav süresi içinde etkin bir şekilde kullanabilmek kritiktir. Düzenli olarak deneme sınavları çözerek hem zaman yönetimi pratiği yapın hem de eksiklerinizi tespit edin.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <script>
-        const questionData = [
-            // 1. Kelime Bilgisi
-            {
-                type: "Kelime Bilgisi / Phrasal Verb",
-                questions: "1-6", count: 6, weight: 7.5, color: "bg-blue-500", lightColor: "bg-blue-50", textColor: "text-blue-600", icon: "📚",
-                details: {
-                    background_info: ["Bağlamsal İpuçları (Contextual Clues)", "Eş ve Zıt Anlamlı Kelime Bilgisi"],
-                    strategies: ["Cümlenin genel anlamından kelimenin ne olabileceğini tahmin edin.", "Boşluktan önceki ve sonraki kelimelere (edat, sıfat vb.) dikkat edin.", "Kelimenin olumlu mu olumsuz mu bir anlam taşıdığını belirleyin."],
-                    examples: [
-                        { question: "The city's infrastructure could not ---- with the rapid population growth, leading to traffic congestion and housing shortages.", options: ["A) put up", "B) keep up", "C) make up", "D) get up", "E) bring up"], answer: "B", explanation: "Cümle, altyapının nüfus artışına 'ayak uyduramadığını' belirtiyor. Bu anlamı 'keep up with' (ayak uydurmak, hızına yetişmek) phrasal verb'ü verir." },
-                        { question: "Despite the initial ----, the team eventually succeeded in developing a groundbreaking new technology.", options: ["A) setbacks", "B) approvals", "C) celebrations", "D) advances", "E) merits"], answer: "A", explanation: "'Despite' (-e rağmen) zıtlık belirtir. Cümlenin ikinci kısmı başarıdan bahsettiğine göre, ilk kısımda 'başarısızlıklar, aksilikler' gibi olumsuz bir kelime olmalıdır. 'Setbacks' bu anlama gelir." }
-                    ]
-                }
-            },
-            // 2. Dilbilgisi
-            {
-                type: "Dilbilgisi / Edat / Bağlaç",
-                questions: "7-16", count: 10, weight: 12.5, color: "bg-green-500", lightColor: "bg-green-50", textColor: "text-green-600", icon: "⚙️",
-                details: {
-                    background_info: ["Zaman Uyumu Kuralları (Tense Agreement)", "Bağlaçların Anlamsal Grupları"],
-                    strategies: ["Zaman uyumuna dikkat edin.", "Bağlaç sorularında cümlenin iki yarısı arasındaki anlamsal ilişkiyi bulun (zıtlık, neden-sonuç vb.).", "Edat sorularında, boşluktan önceki fiil veya sıfatın hangi edatla kullanıldığını (collocation) hatırlamaya çalışın."],
-                    examples: [
-                        { question: "---- the weather was terrible, we decided to go ahead with the outdoor concert.", options: ["A) Because", "B) Since", "C) Although", "D) Therefore", "E) Unless"], answer: "C", explanation: "Cümlenin iki yarısı arasında bir zıtlık vardır (hava berbat ama konsere devam ettik). Bu zıtlık anlamını 'Although' (-e rağmen) bağlacı sağlar." },
-                        { question: "The scientist is renowned ---- her groundbreaking research in the field of genetics.", options: ["A) with", "B) at", "C) by", "D) for", "E) in"], answer: "D", explanation: "'Renowned' (ünlü, tanınmış) sıfatı, bir şey ile ünlü olunduğunu belirtirken 'for' edatı ile kullanılır. Bu bir 'collocation' (birlikte kullanım) kuralıdır." }
-                    ]
-                }
-            },
-            // 3. Cloze Test
-            {
-                type: "Cloze Test",
-                questions: "17-26", count: 10, weight: 12.5, color: "bg-purple-500", lightColor: "bg-purple-50", textColor: "text-purple-600", icon: "🧩",
-                details: {
-                    background_info: ["Metin Akışı ve Tutarlılık (Cohesion & Coherence)", "Sık Kullanılan Edat-Fiil İkilileri"],
-                    strategies: ["Paragrafın tamamını hızlıca okuyarak genel konusunu anlayın.", "Her boşluk için, boşluğun öncesi ve sonrasındaki cümlelere odaklanarak ipuçları arayın.", "Zaman uyumuna ve referans kelimelere (it, they, this) dikkat edin."],
-                    examples: [
-                        { question: "The Earth's climate has always been in a state of flux. (17)----, the current rate of change is unprecedented. Scientists believe that this rapid warming is largely (18)---- by human activities.", options: ["(17) A) However", "B) Therefore", "C) For example", "D) In other words", "E) Similarly"], answer: "A", explanation: "İlk cümle iklimin her zaman değiştiğini, ikinci cümle ise 'şu anki değişim oranının emsalsiz olduğunu' söylüyor. Bu iki ifade arasında bir zıtlık vardır. Bu zıtlığı en iyi 'However' (Ancak) bağlacı kurar." },
-                        { question: "The Earth's climate has always been in a state of flux. (17)----, the current rate of change is unprecedented. Scientists believe that this rapid warming is largely (18)---- by human activities.", options: ["(18) A) caused", "B) ignored", "C) prevented", "D) solved", "E) reduced"], answer: "A", explanation: "Paragraf, hızlı ısınmanın insan faaliyetleri tarafından 'meydana getirildiğini' veya 'sebep olunduğunu' anlatıyor. Bu pasif yapıda anlamı en iyi tamamlayan kelime 'caused' (sebep olunmuş) kelimesidir." }
-                    ]
-                }
-            },
-            // 4. Cümle Tamamlama
-            {
-                type: "Cümle Tamamlama",
-                questions: "27-36", count: 10, weight: 12.5, color: "bg-orange-500", lightColor: "bg-orange-50", textColor: "text-orange-600", icon: "🔗",
-                details: {
-                    background_info: ["Yan Cümle Türleri (Clause Types)", "Bağlaçlar ve Anlamsal İşlevleri"],
-                    strategies: ["Verilen cümlenin yarısını okuyup anlamsal ilişkiyi (neden-sonuç, zıtlık, koşul) belirleyin.", "Bu anlamsal ilişkiyi sağlayacak doğru bağlacı içeren şıkkı arayın.", "Özne-yüklem ve zaman uyumuna dikkat edin."],
-                    examples: [
-                        { question: "Because the ancient city was located at the crossroads of major trade routes, ----.", options: ["A) it remained small and isolated", "B) it became a prosperous hub of commerce and culture", "C) its inhabitants were mostly farmers", "D) it was constantly under threat from invaders", "E) its architecture was not very impressive"], answer: "B", explanation: "'Because' ile başlayan cümle bir neden belirttiği için, ana cümlenin bu nedene uygun bir sonuç bildirmesi gerekir. Ticaret yollarının kavşağında olmak, 'müreffeh bir ticaret ve kültür merkezi haline gelme' sonucunu doğurur." },
-                        { question: "----, many species are now facing extinction.", options: ["A) Unless immediate action is taken to protect their habitats", "B) Provided that conservation efforts are successful", "C) As a result of dedicated conservation programs", "D) Since their populations have been increasing", "E) Although they are protected by law"], answer: "A", explanation: "Ana cümle olumsuz bir sonuçtan bahsediyor ('birçok tür yok olma tehlikesiyle karşı karşıya'). Bu sonucu engelleyecek koşul 'Unless' (-medikçe, -madıkça) ile verilir. 'Yaşam alanlarını korumak için acil önlem alınmadıkça...'" }
-                    ]
-                }
-            },
-            // 5. Çeviri
-            {
-                type: "Çeviri (İng-Tr / Tr-İng)",
-                questions: "37-42", count: 6, weight: 7.5, color: "bg-red-500", lightColor: "bg-red-50", textColor: "text-red-600", icon: "🔄",
-                details: {
-                    background_info: ["Cümlenin Temel Öğeleri (Özne-Yüklem)", "Aktif-Pasif Yapı Farklılıkları"],
-                    strategies: ["Önce cümlenin ana öznesini ve ana fiilini bulun, şıklarda bu ikilinin doğru karşılığını arayın.", "Zaman (Tense) ve Kip (Modal) uyumuna dikkat edin.", "Pasif (edilgen) ve aktif (etken) yapıları doğru aktaran şıkkı bulun."],
-                    examples: [
-                        { question: "The regulations that were recently implemented aim to reduce plastic waste significantly.", options: ["A) Yakın zamanda uygulanan düzenlemeler, plastik atığı önemli ölçüde azaltmayı amaçlamaktadır.", "B) Plastik atığı azaltmayı amaçlayan düzenlemeler yakın zamanda uygulanacaktır.", "C) Önemli ölçüde azaltılan plastik atık, yeni düzenlemelerin uygulanmasını gerektirmiştir.", "D) Üniversite tarafından yürütülen araştırma, hastalığın nedenleri hakkında şaşırtıcı bulgular ortaya çıkarabilirdi.", "E) Hastalığın nedenleri üzerine yapılan beklenmedik araştırma üniversite tarafından ortaya çıkarıldı."], answer: "A", explanation: "Orijinal cümlenin ana öznesi 'The research' (araştırma) ve ana fiili 'revealed' (ortaya çıkardı)'dır. A şıkkı bu yapıyı ve 'was conducted' (yapılan) şeklindeki relative clause'u doğru bir şekilde karşılamaktadır." },
-                        { question: "Hükümetin yeni ekonomik politikaları uygulamaya başlamasından bu yana küçük işletmeler pek çok zorlukla karşılaştı.", options: ["A) Small businesses have faced many challenges since the government started to implement new economic policies.", "B) The government started to implement new economic policies because small businesses faced many challenges.", "C) Many challenges were faced by small businesses after the government implemented new economic policies.", "D) If the government implements new economic policies, small businesses will face many challenges.", "E) The new economic policies implemented by the government have challenged many small businesses."], answer: "A", explanation: "Türkçe cümlenin ana yüklemi 'karşılaştı' ve '-den bu yana' (since) bağlacı kullanılmıştır. Bu yapı İngilizce'de en iyi Present Perfect Tense ('have faced') ile karşılanır. A şıkkı, hem zaman yapısını hem de 'since' ile başlayan yan cümleyi doğru bir şekilde kurmuştur." }
-                    ]
-                }
-            },
-            // 6. Okuma Parçası
-            {
-                type: "Okuduğunu Anlama",
-                questions: "43-62", count: 20, weight: 25.0, color: "bg-indigo-500", lightColor: "bg-indigo-50", textColor: "text-indigo-600", icon: "📖",
-                details: {
-                    background_info: ["Ana Fikir ve Destekleyici Fikirler", "Okuma Teknikleri (Skimming & Scanning)"],
-                    strategies: ["Sorulara hızlıca göz atarak ne tür bilgiler aramanız gerektiğini belirleyin.", "Ana fikir soruları için paragrafın ilk ve son cümlelerine dikkat edin.", "Detay soruları için, soru kökündeki anahtar kelimeleri metinde bulun (scanning)."],
-                    examples: [
-                        { question: "<b>Paragraf:</b> The world's oceans are facing a dual threat from climate change: warming waters and ocean acidification. As the atmosphere warms, the oceans absorb a significant amount of this excess heat, leading to rising sea temperatures. This warming can cause coral bleaching and disrupt marine ecosystems. Simultaneously, about a quarter of the carbon dioxide (CO2) released by human activities is absorbed by the oceans. When CO2 dissolves in seawater, it forms carbonic acid, which lowers the ocean's pH, a process known as acidification. This makes it more difficult for marine organisms like corals and shellfish to build their skeletons and shells.<br><br><b>Soru:</b> The passage is mainly concerned with ----.", options: ["A) the process of coral bleaching", "B) the chemical composition of seawater", "C) the two primary ways climate change affects oceans", "D) the role of shellfish in marine ecosystems", "E) human activities that release carbon dioxide"], answer: "C", explanation: "Paragraf, iklim değişikliğinin okyanusları etkilediği iki ana tehdidi - suların ısınması (warming waters) ve okyanus asitlenmesi (ocean acidification) - açıklamaktadır. Bu nedenle metnin ana konusu C seçeneğidir." },
-                        { question: "<b>Paragraf:</b> (Yukarıdaki metinle aynı)<br><br><b>Soru:</b> According to the passage, ocean acidification makes it harder for some marine creatures to ----.", options: ["A) absorb excess heat from the atmosphere", "B) find food in warmer waters", "C) adapt to lower oxygen levels", "D) form their protective outer layers", "E) dissolve carbon dioxide in seawater"], answer: "D", explanation: "Metinde açıkça 'This makes it more difficult for marine organisms like corals and shellfish to build their skeletons and shells' ifadesi geçmektedir. 'Skeletons and shells' (iskeletler ve kabuklar), bu canlıların 'koruyucu dış katmanları' ('protective outer layers') olarak ifade edilebilir." }
-                    ]
-                }
-            },
-            // 7. Diyalog Tamamlama
-            {
-                type: "Diyalog Tamamlama",
-                questions: "63-67", count: 5, weight: 6.25, color: "bg-pink-500", lightColor: "bg-pink-50", textColor: "text-pink-600", icon: "💬",
-                details: {
-                    background_info: ["Soru-Cevap Kalıpları", "Konuşmanın İletişimsel İşlevi"],
-                    strategies: ["Boşluktan hemen önceki ve hemen sonraki cümlelere odaklanın.", "Boşluktan sonraki cümle bir cevap ise, boşluğun bir soru olması muhtemeldir.", "Konuşmanın akışını ve bağlamını anlayın."],
-                    examples: [
-                        { question: "Clara: I'm thinking of adopting a pet. \nMark: That's great! Have you thought about what kind? \nClara: Not really. I like both cats and dogs. \nMark: ---- \nClara: That's a good point. I should probably consider that.", options: ["A) Dogs are definitely more loyal than cats.", "B) I think you should get a fish instead.", "C) Well, your choice should depend on your lifestyle. Dogs need more attention and walks.", "D) It doesn't really matter which one you choose.", "E) I think we should go to another city for a pet."], answer: "C", explanation: "Clara kararsız olduğunu belirttikten sonra, Mark'ın cevabına 'Bu iyi bir nokta' diyerek katılıyor. Bu, Mark'ın mantıklı bir karşılaştırma veya tavsiye sunduğunu gösterir. C şıkkı, Clara'nın kararını 'yaşam tarzına' dayandırması gerektiğini söyleyerek tam da bu işlevi yerine getirir." },
-                        { question: "Patient: I've been having trouble sleeping lately. \nDoctor: I see. ---- \nPatient: No, I usually drink a cup of herbal tea before bed. \nDoctor: Okay, let's look at some other potential causes then.", options: ["A) Have you been under a lot of stress?", "B) Do you consume any caffeine in the evening?", "C) How many hours do you sleep?", "D) You should try taking some medication.", "E) Did you eat anything unusual yesterday?"], answer: "B", explanation: "Hastanın 'Hayır, genellikle yatmadan önce bitki çayı içerim.' cevabı, doktorun uykusuzluğa neden olabilecek bir içecekle ilgili soru sorduğunu gösterir. Bu bağlamda en mantıklı soru, akşamları kafein tüketip tüketmediğidir." }
-                    ]
-                }
-            },
-            // 8. Anlamca Yakın Cümle
-            {
-                type: "Anlamca En Yakın Cümle",
-                questions: "68-71", count: 4, weight: 5.0, color: "bg-teal-500", lightColor: "bg-teal-50", textColor: "text-teal-600", icon: "🎯",
-                details: {
-                    background_info: ["Eş Anlamlı Yapılar (Paraphrasing)", "Gramer Dönüşüm Kuralları"],
-                    strategies: ["Orijinal cümlenin anlamını değiştirebilecek 'only', 'never', 'all' gibi niteleyici kelimelere dikkat edin.", "Şıklarda, orijinal cümledeki kelimelerin eş anlamlılarını ve yapıların farklı ifadelerini (örn: active'den passive'e) arayın.", "Doğru cevap, orijinal cümlenin anlamını eksiksiz ve fazlasız karşılamalıdır."],
-                    examples: [
-                        { question: "The high cost of the treatment is the primary reason why it is not widely available.", options: ["A) If the treatment were cheaper, it would be much more accessible.", "B) The treatment is not widely available, but it is not expensive.", "C) The main factor limiting the broad accessibility of the treatment is its expense.", "D) Despite being expensive, the treatment is available to everyone.", "E) The expense of the treatment is why it is not the most popular option."], answer: "C", explanation: "Orijinal cümle, tedavinin yaygın olmamasının 'ana nedeninin' ('primary reason') 'yüksek maliyeti' ('high cost') olduğunu söylüyor. C şıkkı, bu anlamı 'The main factor' (ana faktör) ve 'its expense' (onun masrafı) kelimeleriyle tam olarak karşılamaktadır." },
-                        { question: "Unless you have prior experience, you are not eligible for this position.", options: ["A) You can apply for this position only if you have previous experience.", "B) Even with prior experience, you might not be suitable for this position.", "C) This position is not open to anyone, regardless of their experience.", "D) You are eligible for this position because you don't have experience.", "E) Having prior experience is an advantage for this position, but not a requirement."], answer: "A", explanation: "'Unless you have...' (-e sahip olmadıkça) yapısı, bir koşul belirtir. Bu ifadenin anlamca en yakın karşılığı 'only if you have...' (-e sadece sahipsen) yapısıdır." }
-                    ]
-                }
-            },
-            // 9. Paragraf Tamamlama
-            {
-                type: "Paragraf Tamamlama",
-                questions: "72-75", count: 4, weight: 5.0, color: "bg-cyan-500", lightColor: "bg-cyan-50", textColor: "text-cyan-600", icon: "📝",
-                details: {
-                    background_info: ["Paragrafın Yapısı (Giriş-Gelişme-Sonuç)", "Referans Kelimeler ve Anlam Takibi"],
-                    strategies: ["Boşluktan önceki ve sonraki cümleler arasında mantıksal bir köprü kurun.", "Boşluktan sonraki cümlede 'it', 'they', 'this', 'such a problem' gibi referans ifadeleri varsa, bu ifadelerin neye gönderme yaptığını arayın.", "Cümleler arası geçişi sağlayan 'However', 'Therefore', 'In addition' gibi bağlaçlara dikkat edin."],
-                    examples: [
-                        { question: "The brain requires a significant amount of energy to function properly. It accounts for only 2% of our body weight but consumes about 20% of our oxygen and calories. ----. That is why feeling mentally exhausted can be as draining as physical fatigue.", options: ["A) This energy is primarily derived from glucose.", "B) Sleep is also crucial for brain health.", "C) The brain has two hemispheres.", "D) Therefore, the brain is a complex organ.", "E) The study of the brain is called neuroscience."], answer: "A", explanation: "Boşluktan önceki cümle beynin ne kadar enerjiye ihtiyaç duyduğunu anlatıyor. Boşluktan sonraki cümle ise bu durumun neden yorucu olduğunu açıklıyor. Bu araya en mantıklı oturan cümle, bu enerjinin kaynağını ('glikozdan elde edilir') açıklayan A şıkkıdır." },
-                        { question: "Many cities are implementing bike-sharing programs to promote sustainable transport. These programs offer a convenient and affordable way to get around. ----. They face challenges such as vandalism and the logistical problem of redistributing bikes to high-demand areas.", options: ["A) However, they are not without their problems.", "B) Therefore, they are extremely successful.", "C) In addition, they improve public health.", "D) As a result, cycling has become more popular.", "E) These programs are only available in large cities."], answer: "A", explanation: "Boşluktan önceki cümle programların olumlu yönlerini ('uygun ve ucuz'), boşluktan sonraki cümle ise olumsuz yönlerini ('vandalizm, lojistik sorunlar') anlatıyor. Bu zıtlığa geçişi en iyi sağlayan ifade 'However, they are not without their problems.' (Ancak, bu programlar sorunsuz değildir.) cümlesidir." }
-                    ]
-                }
-            },
-            // 10. Anlam Bütünlüğünü Bozan Cümle
-            {
-                type: "Anlam Bütünlüğünü Bozan Cümle",
-                questions: "76-80", count: 5, weight: 6.25, color: "bg-yellow-500", lightColor: "bg-yellow-50", textColor: "text-yellow-600", icon: "🚫",
-                details: {
-                    background_info: ["Paragrafın Ana Fikri (Topic Sentence)", "Cümleler Arası Mantıksal Bağlantılar"],
-                    strategies: ["Paragrafın genel konusunu ilk cümleyi okuyarak belirleyin.", "Her cümlenin bir önceki cümleye nasıl bağlandığını takip edin (zamirler, bağlaçlar).", "Konunun genelinden saparak farklı bir detaya odaklanan cümleyi bulun."],
-                    examples: [
-                        { question: "(I) The development of agriculture was a turning point in human history. (II) It allowed people to settle in one place and form permanent communities. (III) These communities eventually grew into towns and cities. (IV) Hunting and gathering required a nomadic lifestyle. (V) This shift led to the development of new social structures and technologies.", options: ["A) I", "B) II", "C) III", "D) IV", "E) V"], answer: "D", explanation: "Paragraf, 'tarımın gelişiminin' sonuçlarını anlatmaktadır (yerleşik hayat, şehirler, yeni teknolojiler). IV. cümle ise tarımdan önceki 'avcılık ve toplayıcılık' dönemine ait bir bilgi vererek konunun dışına çıkmakta ve anlam akışını bozmaktadır." },
-                        { question: "(I) The Great Wall of China is one of the most impressive architectural feats in history. (II) It stretches for thousands of kilometers across northern China. (III) The wall was built to protect Chinese states against raids and invasions. (IV) Beijing is the modern capital of China and a major tourist destination. (V) Construction on the earliest sections of the wall began as early as the 7th century BC.", options: ["A) I", "B) II", "C) III", "D) IV", "E) V"], answer: "D", explanation: "Paragrafın konusu tamamen Çin Seddi'dir (uzunluğu, amacı, yapılış tarihi). IV. cümle ise Çin'in modern başkenti Pekin hakkında alakasız bir bilgi vererek paragrafın odağını bozmaktadır." }
-                    ]
-                }
-            }
-        ];
-
-        function generateQuestionCards() {
-            const grid = document.getElementById('questionGrid');
-            
-            questionData.forEach((item, index) => {
-                const cardWrapper = document.createElement('div');
-                cardWrapper.className = `question-type-card rounded-xl card-hover animate-fade-in`;
-                cardWrapper.style.animationDelay = `${index * 0.05}s`;
-                
-                let examplesHtml = item.details.examples.map((ex, exIndex) => {
-                    const uniqueId = `ex-${index}-${exIndex}`;
-                    return `
-                    <div class="mt-6 border-t pt-4">
-                        <p class="font-semibold text-gray-700 mb-3">Örnek Soru ${exIndex + 1}:</p>
-                        <div class="bg-gray-100 p-3 rounded-md text-gray-800">${ex.question}</div>
-                        <div id="options-${uniqueId}" class="mt-3 space-y-2">
-                            ${ex.options.map((opt, optIndex) => `<div class="p-2 border rounded-md hover:bg-gray-50 option-btn" data-ex-id="${uniqueId}" data-opt-index="${optIndex}">${opt}</div>`).join('')}
-                        </div>
-                        <div id="result-${uniqueId}" class="mt-3"></div>
-                    </div>
-                `}).join('');
-
-                cardWrapper.innerHTML = `
-                    <div class="p-6 card-header-clickable">
-                         <div class="flex items-center justify-between mb-4">
-                            <div class="text-3xl">${item.icon}</div>
-                            <div class="flex items-center space-x-2">
-                                <div class="${item.lightColor} ${item.textColor} px-3 py-1 rounded-full text-sm font-semibold">
-                                    %${item.weight}
-                                </div>
-                                <svg class="chevron w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-                            </div>
-                        </div>
-                        <h3 class="text-lg font-bold text-gray-800 mb-1">${item.type}</h3>
-                        <p class="text-sm text-gray-500">Sorular: ${item.questions}</p>
-                         <div class="w-full bg-gray-200 rounded-full h-2 mt-4">
-                            <div class="${item.color} h-2 rounded-full progress-bar" style="width: 0%"></div>
-                        </div>
-                    </div>
-                    <div class="details-content bg-white px-6 border-t">
-                        <div>
-                            <h4 class="text-md font-bold text-gray-800 mb-3">🗝️ Çalışılması Gereken Konular</h4>
-                            <div class="flex flex-wrap gap-2 text-sm">
-                                ${item.details.background_info.map(b => `<span class="bg-gray-200 text-gray-700 px-3 py-1 rounded-full font-medium">${b}</span>`).join('')}
-                            </div>
-                        </div>
-                        <div class="mt-6 border-t pt-4">
-                            <h4 class="text-md font-bold text-gray-800 mb-3">⭐ Çözüm Stratejileri</h4>
-                            <ul class="list-disc list-inside space-y-2 text-sm text-gray-600">
-                                ${item.details.strategies.map(s => `<li>${s}</li>`).join('')}
-                            </ul>
-                        </div>
-                        ${examplesHtml}
-                    </div>
-                `;
-                
-                grid.appendChild(cardWrapper);
-            });
-        }
-
-        document.addEventListener('DOMContentLoaded', function() {
-            generateQuestionCards();
-
-            const grid = document.getElementById('questionGrid');
-
-            grid.addEventListener('click', (event) => {
-                const cardHeader = event.target.closest('.card-header-clickable');
-                const optionBtn = event.target.closest('.option-btn');
-
-                if (cardHeader) {
-                    const cardWrapper = cardHeader.parentElement;
-                    const details = cardWrapper.querySelector('.details-content');
-                    const chevron = cardHeader.querySelector('.chevron');
-
-                    if (details) {
-                        const isOpen = details.classList.contains('open');
-
-                        document.querySelectorAll('.details-content.open').forEach(openContent => {
-                            if (openContent !== details) {
-                                openContent.classList.remove('open');
-                                const otherChevron = openContent.parentElement.querySelector('.chevron');
-                                if(otherChevron) otherChevron.classList.remove('open');
-                            }
-                        });
-
-                        if (!isOpen) {
-                            details.classList.add('open');
-                            if(chevron) chevron.classList.add('open');
-                        } else {
-                            details.classList.remove('open');
-                            if(chevron) chevron.classList.remove('open');
-                        }
-                    }
-                }
-                
-                if (optionBtn) {
-                    const exId = optionBtn.dataset.exId;
-                    const [cardIndex, exIndex] = exId.split('-').slice(1).map(Number);
-                    const selectedOptIndex = parseInt(optionBtn.dataset.optIndex);
-                    
-                    const example = questionData[cardIndex].details.examples[exIndex];
-                    const correctAnswerLetter = example.answer;
-                    const selectedAnswerLetter = String.fromCharCode(65 + selectedOptIndex);
-
-                    const optionsContainer = document.getElementById(`options-${exId}`);
-                    const resultContainer = document.getElementById(`result-${exId}`);
-
-                    Array.from(optionsContainer.children).forEach((optDiv, index) => {
-                        const currentOptLetter = String.fromCharCode(65 + index);
-                        optDiv.classList.remove('selected', 'correct', 'incorrect');
-                        if (currentOptLetter === correctAnswerLetter) {
-                            optDiv.classList.add('correct');
-                        }
-                    });
-
-                    optionBtn.classList.add('selected');
-                     if (selectedAnswerLetter !== correctAnswerLetter) {
-                        optionBtn.classList.add('incorrect');
-                    }
-
-
-                    resultContainer.innerHTML = `
-                        <div class="mt-3 p-3 ${selectedAnswerLetter === correctAnswerLetter ? 'bg-green-50 border-green-200' : 'bg-red-50 border-red-200'} rounded-md">
-                            <p class="font-bold ${selectedAnswerLetter === correctAnswerLetter ? 'text-green-800' : 'text-red-800'}">
-                                ${selectedAnswerLetter === correctAnswerLetter ? 'Doğru!' : 'Yanlış.'} Doğru Cevap: ${correctAnswerLetter}
-                            </p>
-                            <p class="text-sm ${selectedAnswerLetter === correctAnswerLetter ? 'text-green-700' : 'text-red-700'} mt-2">${example.explanation}</p>
-                        </div>
-                    `;
-                }
-            });
-
-            setTimeout(() => {
-                const progressBars = document.querySelectorAll('.progress-bar');
-                progressBars.forEach((bar, index) => {
-                    const item = questionData[index];
-                    if (item) {
-                       bar.style.width = `${item.weight}%`;
-                    }
-                });
-            }, 500);
-        });
-    </script>
-
-    <!-- Signature -->
-    <div class="fixed bottom-4 right-4 text-xs text-gray-700 bg-white/60 backdrop-blur-sm p-2 rounded-lg shadow-lg">
-        Designed by <span class="font-bold text-indigo-700">Sinan Seden</span>
+<body>
+  <a class="skip" href="#lesson">İçeriğe geç</a>
+  <div class="topbar">
+    <div class="wrap top-inner">
+      <a class="brand" href="#top"><span class="brand-mark" aria-hidden="true">Y</span><span>YDS SORU TİPLERİ<small>SİNAN SEDEN</small></span></a>
+      <a class="back" href="https://sinanseden-eng.github.io/dacka-yds-rehberi/">← YDS rehberi</a>
+      <button class="mode" id="modeButton" type="button" aria-pressed="false">Sunum modu</button>
     </div>
+  </div>
+  <header class="hero" id="top">
+    <div class="wrap hero-inner">
+      <div><span class="eyebrow">YDS / Soru laboratuvarı</span><h1>Bir tip. <em>Bir soru.</em><br>Bir çözüm yolu.</h1><p>YDS rehberinden sonra her soru türünü tek bir örnekle keşfedin. Öğrenciler önce tartışsın; cevap ve ayrıntılı çözüm siz açınca görünsün.</p></div>
+      <div class="hero-graphic" aria-hidden="true"><span>10 özgün örnek • 5 şık</span></div>
+    </div>
+  </header>
+  <main class="wrap main" id="lesson">
+    <div class="intro-strip"><div><strong>Sunum akışı</strong><p>Bir şık seçmek cevabı göstermez. Çözümü hazır olduğunuzda açın.</p></div><div class="stage-dots" aria-hidden="true"><span>01 · Sor</span><span>02 · Tartış</span><span>03 · Açıkla</span></div></div>
+    <div class="section-label"><h2>Soru türünü seç</h2><span>Her türden yalnızca bir soru</span></div>
+    <nav class="type-nav" id="typeNav" aria-label="Soru tipleri"></nav>
+    <article class="lesson" aria-labelledby="typeTitle">
+      <div class="lesson-header">
+        <div class="type-icon" id="typeIcon" aria-hidden="true"></div>
+        <div class="lesson-heading"><span class="mini-label" id="typeGroup"></span><h2 id="typeTitle"></h2></div>
+        <div class="counter"><strong id="counter"></strong><span>örnek soru</span></div>
+      </div>
+      <div class="lesson-progress" aria-hidden="true"><span id="progressBar"></span></div>
+      <div class="lesson-content">
+        <div class="approach"><div><h3>Bu tipte ne yapıyoruz?</h3><p id="approachText"></p></div><div class="skills" id="skills" aria-label="Gerekli beceriler"></div></div>
+        <span class="question-instruction" id="instruction"></span>
+        <div class="passage" id="passage" hidden></div>
+        <h3 class="stem" id="stem"></h3>
+        <div class="options" id="options" role="group" aria-label="A'dan E'ye cevap seçenekleri"></div>
+        <p class="selection-note" id="selectionNote" role="status">Cevabı sınıfla tartışın; şık seçimi sonucu açıklamaz.</p>
+        <div class="reveal-row"><p>Öğretmen kontrolü · Çözüm siz açana kadar gizlidir.</p><button class="reveal" id="revealButton" type="button" aria-expanded="false" aria-controls="solution">Cevabı ve ayrıntılı çözümü göster</button></div>
+        <section class="solution" id="solution" aria-label="Cevap ve ayrıntılı çözüm" hidden>
+          <div class="solution-top"><span class="answer-badge" id="answerBadge"></span><h3 id="solutionTitle"></h3></div>
+          <h4>Çözüm yolu</h4><p id="rationale"></p>
+          <h4>Diğer şıklar neden elenir?</h4><ul class="why-list" id="whyList"></ul>
+        </section>
+      </div>
+      <div class="lesson-footer"><button class="nav-action" id="previous" type="button">← Önceki soru</button><span class="keyboard">Klavyede ← ve → ile geçiş</span><button class="nav-action" id="next" type="button">Sonraki soru →</button></div>
+    </article>
+    <p class="footnote">Sorular öğretim amacıyla özgün olarak hazırlanmıştır; ÖSYM sorusu değildir. Soru türü sırası ve beş şıklı yapı, resmî YDS kitapçığıyla karşılaştırılmıştır.</p>
+  </main>
+  <footer><div class="wrap footer-inner"><span><strong>YDS Soru Tipleri</strong> · Sinan Seden</span><a href="https://www.osym.gov.tr/2026yds1-temel-soru-kitapciklarinin-yayimlanmasi-10" target="_blank" rel="noopener noreferrer">ÖSYM soru kitapçığına bak ↗</a></div></footer>
+  <script>
+    const questions = [
+      {
+        title:"Kelime Bilgisi", short:"Kelime", group:"Sözcük seçimi", icon:"Aa", accent:"#365bce", tint:"#e9eeff",
+        approach:"Cümlenin tamamını okuyup boşluğun taşıması gereken anlamı belirleyin. Özellikle sonuç ve gerekçe bildiren ifadeleri ipucu olarak kullanın.",
+        skills:["bağlamdan anlam çıkarma","anlam tonu","akademik sözcük"],
+        instruction:"Choose the best word to fill the space.",
+        stem:"The findings were initially treated with ---- because the study involved only twelve participants; larger trials were needed before firm conclusions could be drawn.",
+        options:["enthusiasm","skepticism","precision","compliance","persistence"], answer:1,
+        rationale:"Yalnızca on iki katılımcının bulunması ve kesin sonuca varmadan önce daha büyük çalışmaların gerekmesi, bulgulara başlangıçta kuşkuyla yaklaşıldığını gösterir. 'Treated with skepticism' doğal bir birlikteliktir ve cümlenin gerekçesiyle örtüşür.",
+        wrong:{A:"Enthusiasm olumlu bir coşkudur; küçük örneklem yüzünden duyulan ihtiyatı karşılamaz.",C:"Precision bir işlemin kesinliğini anlatır; bulgulara yönelik şüpheyi ifade etmez.",D:"Compliance kurallara uyumdur; bulguları değerlendirme tutumuyla ilgili değildir.",E:"Persistence ısrar veya sürekliliktir; daha büyük deneme gereksiniminin doğurduğu tavrı vermez."}
+      },
+      {
+        title:"Dil Bilgisi ve Bağlaç", short:"Dil bilgisi", group:"Anlam ilişkisi", icon:"↔", accent:"#208b80", tint:"#e3f6f2",
+        approach:"Boşluğun bağladığı iki yargı arasındaki ilişkiyi bulun. Önce beklenen sonucun mu, beklenmedik bir karşıtlığın mı anlatıldığını düşünün.",
+        skills:["karşıtlık ilişkisi","yan cümle yapısı","bağlaç anlamı"],
+        instruction:"Choose the best expression to fill the space.",
+        stem:"---- the treatment had shown promising results in small trials, it failed to produce a measurable benefit in the larger study.",
+        options:["Because","Although","Unless","As soon as","So that"], answer:1,
+        rationale:"Küçük denemelerde umut verici sonuçlar alınmasına karşın büyük çalışmada ölçülebilir yarar görülmemiştir. Beklentiyle gerçekleşen sonuç ters düştüğü için 'Although' gerekir. Ardından gelen tam yan cümle ve virgül de bu kullanıma uygundur.",
+        wrong:{A:"Because neden bildirir; ilk bulgu ikinci cümledeki başarısızlığın nedeni olarak sunulmuyor.",C:"Unless 'olmadıkça' koşulu kurar; iki araştırma sonucunu karşılaştırmaz.",D:"As soon as zaman ilişkisi kurar; burada asıl bağ beklenmedik karşıtlıktır.",E:"So that amaç bildirir; tedavinin başarısız olması bir amaç değildir."}
+      },
+      {
+        title:"Cloze Test", short:"Cloze", group:"Paragrafta boşluk", icon:"▦", accent:"#7956b8", tint:"#f0eafb",
+        approach:"Paragrafın genel düşüncesini okuyun; sonra boşluğun öncesi ve sonrasını birlikte değerlendirin. Seçtiğiniz sözcüğün metnin yönünü desteklediğinden emin olun.",
+        skills:["metin akışı","bağlamsal çıkarım","sözcük uyumu"],
+        instruction:"Choose the best word to fill the space in the passage.",
+        passage:"For centuries, astronomers relied mainly on visible light to study distant objects. Radio telescopes later revealed regions hidden by dust. Today, researchers combine observations from several kinds of telescope to build a more ---- picture of the universe. This approach helps them study objects that would otherwise remain invisible.",
+        stem:"Which word best completes the passage?",
+        options:["fragmented","comprehensive","temporary","controversial","fragile"], answer:1,
+        rationale:"Görünür ışığın gösteremediği bölgeler radyo teleskoplarıyla açığa çıkarılıyor ve farklı gözlemler birleştiriliyor. Bu birleşim evren hakkında daha 'kapsamlı' (comprehensive) bir tablo sağlar. Son cümledeki 'otherwise remain invisible' ifadesi de bilginin genişlediğini doğrular.",
+        wrong:{A:"Fragmented 'parçalı' demektir; gözlemlerin birleştirilmesiyle ters düşer.",C:"Temporary 'geçici' demektir; metin bilginin süresinden söz etmiyor.",D:"Controversial 'tartışmalı' demektir; yeni gözlem türleri bir tartışma yaratmıyor.",E:"Fragile 'kırılgan' demektir; evren tasvirinin kapsamını açıklamaz."}
+      },
+      {
+        title:"Cümle Tamamlama", short:"Cümle", group:"Cümleyi tamamla", icon:"→", accent:"#cb793b", tint:"#fff1e5",
+        approach:"Verilen bölümdeki bağlacı ve temel yargıyı saptayın. Şık, aynı özne ve konuyla ilgili mantıklı bir devam oluşturmalı.",
+        skills:["concession / karşıtlık","özne takibi","mantıklı devam"],
+        instruction:"Choose the best option to complete the sentence.",
+        stem:"Although the city has expanded its network of cycle lanes, ----.",
+        options:["many residents still avoid cycling because several routes end at busy junctions","the new lanes were built alongside major roads last year","cycling has become the only means of transport for all residents","its transport department announced the plan after a public consultation","other cities have also invested in public transport"], answer:0,
+        rationale:"'Although' bir beklentiye rağmen gerçekleşen durumu bağlar. Bisiklet yolları genişlemiş olsa da bazı yolların yoğun kavşaklarda bitmesi yüzünden insanların bisiklete binmekten kaçınması güçlü ve aynı konuya bağlı bir karşıtlıktır.",
+        wrong:{B:"Yolların ne zaman ve nereye yapıldığını ekler; 'although' ile beklenen karşıtlığı oluşturmaz.",C:"Herkesin yalnızca bisiklet kullanması aşırı bir iddiadır ve karşıtlık kurmaz.",D:"Planın duyurulma süresi ayrı bir bilgidir; mevcut sonuca bağlanmaz.",E:"Başka şehirlerin yatırımı verilen şehrin bisiklet yollarıyla ilgili karşıt bir sonuç değildir."}
+      },
+      {
+        title:"Çeviri", short:"Çeviri", group:"İngilizceden Türkçeye", icon:"⇄", accent:"#bf5b69", tint:"#fff0f2",
+        approach:"Ana yargıyı, 'although' ile kurulan karşıtlığı ve 'because' ile verilen gerekçeyi ayrı ayrı eşleştirin. Olumsuzluk ve temsil düzeyi değişiyorsa o şıkkı eleyin.",
+        skills:["anlamı eksiksiz aktarma","karşıtlık ve neden","olumsuzluk takibi"],
+        instruction:"Choose the most accurate Turkish translation.",
+        stem:"Although the survey reached participants from several regions, its findings cannot be generalized to the entire population because older adults were underrepresented.",
+        options:[
+          "Anket birkaç bölgeden katılımcılara ulaşmış olsa da, yaşlı yetişkinler yeterince temsil edilmediği için bulguları tüm nüfusa genellenemez.",
+          "Anket yalnızca bir bölgedeki yaşlı yetişkinlere ulaştığı için bulguları tüm nüfusa genellenemez.",
+          "Yaşlı yetişkinler yeterince temsil edildiğinden, anketin birkaç bölgedeki bulguları tüm nüfusa genellenebilir.",
+          "Anket birkaç bölgeden katılımcılara ulaşmadan önce, yaşlı yetişkinlerin bulguları tüm nüfusa genellendi.",
+          "Anketin bulguları tüm nüfusa genellenemese de, yaşlı yetişkinler birkaç bölgede yeterince temsil edildi."
+        ], answer:0,
+        rationale:"İngilizce cümlede 'although' karşıtlık, 'because' gerekçe kurar. 'Underrepresented' yeterince temsil edilmeme, 'cannot be generalized' ise genellenememe anlamındadır. A hem birkaç bölgeden katılımı hem de bu karşıtlık, gerekçe ve olumsuzluğu doğru sırayla korur.",
+        wrong:{B:"'Several regions' ifadesini 'yalnızca bir bölge'ye indirger ve katılımcı grubunu değiştirir.",C:"'Underrepresented' ve 'cannot' ifadelerinin ikisini de tersine çevirir.",D:"'Although' karşıtlığını zaman ilişkisine çevirir; özne ve yüklem ilişkisini de bozar.",E:"Yetersiz temsili yeterli temsil olarak verir ve gerekçeyi tersine çevirir."}
+      },
+      {
+        title:"Okuduğunu Anlama", short:"Okuma", group:"Ana fikir", icon:"≡", accent:"#315aa7", tint:"#e7effb",
+        approach:"Örnek ayrıntıları tek tek seçmek yerine paragrafın bütününe yayılan ana iddiayı bulun. İlk ve son cümleyi metnin geri kalanıyla karşılaştırın.",
+        skills:["ana fikir","ayrıntı–genel fikir ayrımı","parafraz"],
+        instruction:"Answer the question according to the passage.",
+        passage:"Urban trees can make hot streets more comfortable, but planting more trees is not always enough. Species differ in shade, water needs and their ability to survive pollution. A young tree may provide little cooling for years, while a mature one can be lost quickly if construction damages its roots. Researchers therefore argue that cities should protect existing trees as carefully as they plant new ones. They also recommend placing trees where pedestrians most need shade, such as near schools and bus stops, and maintaining them through dry periods. In this view, a tree programme should be judged by the benefits its trees provide over time, rather than by the number of saplings planted in a single year.",
+        stem:"The passage mainly emphasizes that ----.",
+        options:[
+          "urban trees survive pollution more easily than trees in rural areas",
+          "city tree programmes should focus on long-term care and practical benefits, not just planting totals",
+          "planting young trees near schools is always better than protecting mature trees",
+          "construction projects should be suspended wherever trees are present",
+          "the cooling effect of trees depends only on the amount of rainfall"
+        ], answer:1,
+        rationale:"Paragraf açılışta ağaç sayısını artırmanın tek başına yetmeyeceğini söyler; devamında mevcut ağaçları koruma, doğru yere dikme ve bakım yapma örnekleri verir. Son cümle başarı ölçüsünün bir yılda dikilen fidan sayısı değil, zaman içindeki gerçek yararlar olduğunu özetler. B bu bütünsel düşünceyi karşılar.",
+        wrong:{A:"Kırsal ağaçlarla bir karşılaştırma yapılmıyor.",C:"Metin genç ağaçları yetişkin ağaçlara üstün tutmuyor; 'always' aşırı ve ters bir genelleme.",D:"İnşaatın köklere zarar verme riski örnektir; tüm inşaatları durdurma önerilmez.",E:"Yağış ve yalnızca yağışla ilgili bir iddia yok; metin konum, tür ve bakımı da vurgular."}
+      },
+      {
+        title:"Diyalog Tamamlama", short:"Diyalog", group:"Konuşmanın akışı", icon:"“ ”", accent:"#b24d90", tint:"#fbeaf5",
+        approach:"Boşluğun öncesindeki soruyu ve sonrasındaki tepkiyi birlikte okuyun. Yanıt hem konuşmacının amacına hem de sonraki cümledeki 'Good idea' ifadesine uymalı.",
+        skills:["konuşmacı niyeti","önce–sonra bağlantısı","tutarlı yanıt"],
+        instruction:"Choose the best option to complete the dialogue.",
+        passage:"Mira: We have enough volunteers for the community garden, but the soil test results won't arrive until next week.\nJon: Does that mean we should cancel Saturday's meeting?\nMira: ----\nJon: Good idea. We can plan the layout now and choose plants after we see the results.",
+        stem:"Which response best completes Mira's turn?",
+        options:[
+          "Yes, the soil test showed that the plants cannot grow here.",
+          "We should ask the volunteers to choose all the plants before the meeting.",
+          "Not at all. We can discuss the layout and wait for the results before choosing plants.",
+          "The meeting cannot take place unless all the plants have been ordered.",
+          "I am not sure there will be enough people to help us."
+        ], answer:2,
+        rationale:"Jon toplantının iptal edilip edilmeyeceğini soruyor. Sonraki sözünde 'Good idea' diyerek yerleşimi şimdi planlayıp bitkileri sonuçlardan sonra seçmeyi öneriyor. C, toplantıyı iptal etmeden bu iki aşamalı planı tam olarak sunar.",
+        wrong:{A:"Test sonuçları henüz gelmediği için 'showed' bilgisi metne aykırı.",B:"Bitkileri sonuçları görmeden seçmek Jon'un sonraki planıyla çelişir.",D:"Toplantıyı yapılamaz sayar; Jon ise toplantıda yerleşimi planlamayı kabul ediyor.",E:"İlk cümlede gönüllü sayısının yeterli olduğu açıkça söyleniyor."}
+      },
+      {
+        title:"Anlamca En Yakın Cümle", short:"Yakın anlam", group:"Parafraz", icon:"≈", accent:"#168c92", tint:"#e4f6f5",
+        approach:"Olay sırasını ve 'only after' sınırlamasını koruyan şıkkı arayın. Benzer sözcükler yeterli değildir; cümle aynı koşulu ifade etmelidir.",
+        skills:["zaman sırası","only after / until","anlam eşdeğerliği"],
+        instruction:"Choose the sentence closest in meaning to the given sentence.",
+        stem:"Only after the archive was digitised could researchers compare documents held in different cities.",
+        options:[
+          "Researchers could not compare documents from different cities until the archive had been digitised.",
+          "The archive was digitised because researchers had already compared documents from different cities.",
+          "Digitising the archive prevented researchers from comparing documents held in different cities.",
+          "Researchers compared documents only from the city in which the archive was digitised.",
+          "Researchers were able to compare documents from different cities before the archive was digitised."
+        ], answer:0,
+        rationale:"'Only after' yapısı karşılaştırma olanağının ancak dijitalleştirmeden sonra doğduğunu belirtir. A'daki 'could not ... until' aynı sınırı farklı yapıyla anlatır. Her iki cümlede de belgeler farklı şehirlerde bulunur; karşılaştırma öncesinde arşivin dijitalleştirilmesi gerekir.",
+        wrong:{B:"Olay sırasını ve neden ilişkisini ters çevirir; karşılaştırmayı dijitalleştirmeden önceye koyar.",C:"Dijitalleştirmenin karşılaştırmayı engellediğini söyler; asıl cümlede onu mümkün kılar.",D:"Belgelerin farklı şehirlerde olması bilgisini 'tek şehir'deki belgelerle değiştirir.",E:"Karşılaştırma olanağını dijitalleştirmeden önceye taşıyarak 'only after' anlamını tersine çevirir."}
+      },
+      {
+        title:"Paragraf Tamamlama", short:"Paragraf", group:"Cümleler arası köprü", icon:"¶", accent:"#4b80b5", tint:"#eaf3fc",
+        approach:"Boşluğun iki yanını okuyun; sonraki cümledeki 'For this reason' hangi düşünceye gönderme yapıyor, bulun. Doğru cümle önceki yararı kabul edip sonraki çözümün nedenini hazırlamalı.",
+        skills:["gönderim sözcükleri","mantıksal köprü","karşıtlık"],
+        instruction:"Choose the best sentence to complete the passage.",
+        passage:"Many museums have begun to digitise their collections. Online images allow people who live far away to examine objects they might never see in person. ----. For this reason, curators often provide notes about an object's size, material and original use alongside the image.",
+        stem:"Which sentence best fills the gap?",
+        options:[
+          "Visitors are no longer interested in visiting museums in person.",
+          "Yet a photograph alone cannot convey every feature of a physical object.",
+          "As a result, museums have stopped recording where objects came from.",
+          "These digital collections are always cheaper to maintain than physical ones.",
+          "Most museum objects were produced in the same historical period."
+        ], answer:1,
+        rationale:"İlk iki cümle dijital görüntülerin erişim yararını anlatır. Son cümlede küratörler görselin yanına boyut, malzeme ve kullanım notları ekler. B, fotoğrafın nesnenin bütün özelliklerini aktaramadığı eksikliğini kurar; 'For this reason' tam olarak bu eksikliğe bağlanır.",
+        wrong:{A:"Ziyaretçi ilgisine dair kesin bir iddia getirir; eklenen açıklama notlarını gerekçelendirmez.",C:"Köken bilgisinin kaydını bırakmak, sonraki cümlede verilen ek bilgiyle ters düşer.",D:"Bakım maliyeti metindeki boyut ve malzeme notlarının nedeni değildir; 'always' da temelsizdir.",E:"Nesnelerin dönemleri hakkında bir konu açar; çevresindeki cümlelerle bağ kurmaz."}
+      },
+      {
+        title:"Anlam Bütünlüğünü Bozan Cümle", short:"Bütünlük", group:"Paragrafın odağı", icon:"⊘", accent:"#9b7731", tint:"#fff4dd",
+        approach:"Paragrafın ortak konusunu belirleyin ve her cümlenin bir sonrakine nasıl bağlandığını izleyin. Bilgi doğru olsa bile bu akışa hizmet etmeyen cümleyi seçin.",
+        skills:["konu sürekliliği","gönderim takibi","akıştaki sapma"],
+        instruction:"Choose the sentence that disrupts the meaning of the passage.",
+        passage:"(I) Many cities are replacing conventional streetlights with LEDs to reduce energy use. (II) LEDs generally need less electricity and can be dimmed when streets are empty. (III) Some cities also use sensors to adjust brightness in response to pedestrian activity. (IV) The first electric streetlights appeared in the nineteenth century. (V) Together, these measures can lower consumption without leaving busy areas poorly lit.",
+        stem:"Which numbered sentence should be removed?",
+        options:["I","II","III","IV","V"], answer:3,
+        rationale:"I, II ve III enerji tasarrufu için LED ve sensör kullanımını geliştirir. V'deki 'these measures' ifadesi II ve III'teki önlemlere dönerek düşünceyi sonuçlandırır. IV ise sokak aydınlatmasının tarihine sıçrar; çıkarıldığında III ile V arasındaki bağ daha açık kalır.",
+        wrong:{A:"I paragrafın ana konusunu ve amacını kurar.",B:"II, LED kullanımının enerji açısından neden önemli olduğunu açıklar.",C:"III, sensörlerle parlaklık ayarını ekleyerek 'these measures' ifadesine ikinci dayanağı sağlar.",E:"V önceki önlemleri toparlar ve paragrafın sonucudur."}
+      }
+    ];
 
+    const letters = ["A","B","C","D","E"];
+    const typeNav = document.getElementById("typeNav");
+    const optionsEl = document.getElementById("options");
+    const solution = document.getElementById("solution");
+    const revealButton = document.getElementById("revealButton");
+    const selectionNote = document.getElementById("selectionNote");
+    let active = 0;
+    let selected = null;
+    let revealed = false;
+
+    function node(tag, className, content) {
+      const el = document.createElement(tag);
+      if (className) el.className = className;
+      if (content !== undefined) el.textContent = content;
+      return el;
+    }
+    function renderNav() {
+      typeNav.replaceChildren();
+      questions.forEach(function(q,i){
+        const button = node("button","type-button");
+        button.type = "button";
+        button.setAttribute("aria-label",(i+1)+". soru tipi: "+q.title);
+        if(i===active) button.setAttribute("aria-current","step");
+        button.append(node("b","",String(i+1).padStart(2,"0")),node("span","",q.short));
+        button.addEventListener("click",function(){show(i)});
+        typeNav.append(button);
+      });
+    }
+    function paintOptions() {
+      Array.from(optionsEl.children).forEach(function(button,i){
+        button.classList.toggle("selected",selected===i && !revealed);
+        button.classList.toggle("correct",revealed && i===questions[active].answer);
+        button.classList.toggle("incorrect",revealed && selected===i && i!==questions[active].answer);
+        button.setAttribute("aria-pressed",String(selected===i));
+      });
+    }
+    function show(index) {
+      if(index<0 || index>=questions.length) return;
+      active=index; selected=null; revealed=false;
+      const q=questions[index];
+      document.documentElement.style.setProperty("--accent",q.accent);
+      document.documentElement.style.setProperty("--tint",q.tint);
+      document.getElementById("typeTitle").textContent=q.title;
+      document.getElementById("typeGroup").textContent=q.group;
+      document.getElementById("typeIcon").textContent=q.icon;
+      document.getElementById("counter").textContent=String(index+1).padStart(2,"0")+" / "+questions.length;
+      document.getElementById("progressBar").style.width=((index+1)/questions.length*100)+"%";
+      document.getElementById("approachText").textContent=q.approach;
+      document.getElementById("instruction").textContent=q.instruction;
+      document.getElementById("stem").textContent=q.stem;
+      const passage=document.getElementById("passage");
+      passage.hidden=!q.passage;
+      passage.textContent=q.passage||"";
+      const skills=document.getElementById("skills");
+      skills.replaceChildren();
+      q.skills.forEach(function(skill){skills.append(node("span","skill",skill))});
+      optionsEl.replaceChildren();
+      q.options.forEach(function(option,i){
+        const button=node("button","option");
+        button.type="button";
+        button.append(node("span","letter",letters[i]),node("span","option-text",option));
+        button.addEventListener("click",function(){
+          selected=i;
+          paintOptions();
+          selectionNote.textContent=revealed
+            ? (i===q.answer ? "Doğru şık seçildi." : "Seçilen şık: "+letters[i]+". Doğru cevap: "+letters[q.answer]+".")
+            : "Seçilen şık: "+letters[i]+". Cevabı açmadan sınıfla tartışabilirsiniz.";
+        });
+        optionsEl.append(button);
+      });
+      selectionNote.textContent="Cevabı sınıfla tartışın; şık seçimi sonucu açıklamaz.";
+      solution.hidden=true;
+      revealButton.setAttribute("aria-expanded","false");
+      revealButton.textContent="Cevabı ve ayrıntılı çözümü göster";
+      document.getElementById("previous").disabled=index===0;
+      document.getElementById("next").disabled=index===questions.length-1;
+      renderNav();
+    }
+    function toggleSolution() {
+      revealed=!revealed;
+      const q=questions[active];
+      solution.hidden=!revealed;
+      revealButton.setAttribute("aria-expanded",String(revealed));
+      revealButton.textContent=revealed?"Çözümü gizle":"Cevabı ve ayrıntılı çözümü göster";
+      if(revealed){
+        document.getElementById("answerBadge").textContent=letters[q.answer];
+        document.getElementById("solutionTitle").textContent="Doğru cevap: "+letters[q.answer];
+        document.getElementById("rationale").textContent=q.rationale;
+        const list=document.getElementById("whyList");
+        list.replaceChildren();
+        letters.forEach(function(letter,i){
+          if(i===q.answer) return;
+          const li=node("li");
+          li.append(node("strong","",letter+" · "),document.createTextNode(q.wrong[letter]));
+          list.append(li);
+        });
+      }
+      paintOptions();
+      if(selected!==null) selectionNote.textContent=revealed
+        ? (selected===q.answer?"Doğru şık seçildi.":"Seçilen şık: "+letters[selected]+". Doğru cevap: "+letters[q.answer]+".")
+        : "Seçilen şık: "+letters[selected]+". Cevabı açmadan sınıfla tartışabilirsiniz.";
+    }
+    revealButton.addEventListener("click",toggleSolution);
+    document.getElementById("previous").addEventListener("click",function(){show(active-1)});
+    document.getElementById("next").addEventListener("click",function(){show(active+1)});
+    document.getElementById("modeButton").addEventListener("click",function(){
+      const on=document.body.classList.toggle("presenting");
+      this.setAttribute("aria-pressed",String(on));
+      this.textContent=on?"Sunum modundan çık":"Sunum modu";
+    });
+    document.addEventListener("keydown",function(e){
+      if(e.altKey||e.ctrlKey||e.metaKey||e.target.closest("input,textarea,select")) return;
+      if(e.key==="ArrowRight"){e.preventDefault();show(active+1)}
+      if(e.key==="ArrowLeft"){e.preventDefault();show(active-1)}
+      if(e.key==="Escape"&&document.body.classList.contains("presenting")) document.getElementById("modeButton").click();
+    });
+    show(0);
+  </script>
 </body>
 </html>
-
