@@ -71,6 +71,7 @@
     .card-head h2:focus{outline:0}
     .face-badge{margin-left:auto;border:1px solid color-mix(in srgb,var(--accent) 22%,white);padding:7px 11px;border-radius:50px;font-size:10px;font-weight:800;color:var(--accent);background:white;white-space:nowrap}
     .card-body{padding:27px 31px 26px}
+    .type-definition{margin:0 0 20px;padding:14px 18px;border-left:3px solid var(--accent);border-radius:0 12px 12px 0;background:var(--tint);color:#46546b;font-size:14px;line-height:1.65}
     .question-instruction{display:block;font-size:11px;color:#788093;font-weight:700;margin-bottom:17px;letter-spacing:.02em}
     .question-layout{display:block}
     .has-passage .question-layout{display:grid;grid-template-columns:.96fr 1.04fr;gap:29px;align-items:start}
@@ -138,6 +139,7 @@
     body.presenting .option-text{font-size:18px}
     body.presenting .stem{font-size:25px}
     body.presenting .passage{font-size:18px}
+    body.presenting .type-definition{font-size:16px}
     body.presenting .back-intro p,body.presenting .solution p{font-size:18px}
     body.presenting .techniques p,body.presenting .why-list li{font-size:15px}
     body.presenting .study-backdrop svg{opacity:.38}
@@ -170,6 +172,7 @@
       .card-head{padding:19px 16px;gap:10px}.type-icon{flex-basis:38px;height:38px;font-size:21px;border-radius:11px}
       .card-head h2{font-size:20px}.face-label{font-size:8px}.face-badge{font-size:8px;padding:6px 8px}
       .card-body{padding:21px 17px 22px}.stem{font-size:18px}.option-text{font-size:14px}
+      .type-definition{font-size:13px;padding:12px 14px}body.presenting .type-definition{font-size:14px}
       .card-action{align-items:stretch;flex-direction:column;gap:12px}.card-action p{font-size:11px}
       .primary{width:100%;padding:13px}.selection-row{gap:8px}.selection-note{font-size:10px}
       .reveal-row{flex-direction:column;align-items:stretch;padding:14px}.reveal{white-space:normal}
@@ -231,7 +234,7 @@
       <article class="question-card" id="questionCard" aria-roledescription="soru kartı" aria-label="1 / 10: Kelime Bilgisi">
         <section class="face face-front" id="frontFace" aria-labelledby="frontTitle">
           <div class="card-head"><div class="type-icon" id="frontIcon" aria-hidden="true"></div><div><span class="face-label">Ön yüz · Soru</span><h2 id="frontTitle" tabindex="-1"></h2></div><span class="face-badge">5 şık · 1 doğru</span></div>
-          <div class="card-body"><span class="question-instruction" id="instruction" lang="en"></span>
+          <div class="card-body"><p class="type-definition" id="typeDefinition"></p><span class="question-instruction" id="instruction" lang="en"></span>
             <div class="question-layout"><div class="passage" id="passage" hidden><span class="passage-label">Soru metni</span><span id="passageText" lang="en"></span></div><div><h3 class="stem" id="stem" lang="en"></h3><div class="options" id="options" role="group" aria-label="Cevap seçenekleri"></div></div></div>
             <div class="selection-row"><p class="selection-note" id="selectionNote" role="status"></p><button class="clear" id="clearButton" type="button" hidden>Seçimi temizle</button></div>
             <div class="card-action"><p>Bir şık seçin, düşüncenizi paylaşın.</p><button class="primary" id="flipButton" type="button" aria-controls="backFace"><span class="turn-icon" aria-hidden="true">↻</span> Kartı çevir · Teknikleri gör</button></div>
@@ -260,6 +263,7 @@
         approach:"Cümlenin tamamını okuyup boşluğun taşıması gereken anlamı belirleyin. Özellikle sonuç ve gerekçe bildiren ifadeleri ipucu olarak kullanın.",
         skills:["bağlamdan anlam çıkarma","anlam tonu","akademik sözcük"],
         instruction:"Choose the best word to fill the space.",
+        definition:"Verilen cümleyi uygun sözcük veya ifadeyle tamamlamanız istenir. Bu sorular, kelime ve phrasal verb bilginizi cümle bağlamında ölçer.",
         stem:"The findings were initially treated with ---- because the study involved only twelve participants; larger trials were needed before firm conclusions could be drawn.",
         options:["enthusiasm","skepticism","precision","compliance","persistence"], answer:1,
         rationale:"Yalnızca on iki katılımcının bulunması ve kesin sonuca varmadan önce daha büyük çalışmaların gerekmesi, bulgulara başlangıçta kuşkuyla yaklaşıldığını gösterir. 'Treated with skepticism' doğal bir birlikteliktir ve cümlenin gerekçesiyle örtüşür.",
@@ -270,6 +274,7 @@
         approach:"Boşluğun bağladığı iki yargı arasındaki ilişkiyi bulun. Önce beklenen sonucun mu, beklenmedik bir karşıtlığın mı anlatıldığını düşünün.",
         skills:["karşıtlık ilişkisi","yan cümle yapısı","bağlaç anlamı"],
         instruction:"Choose the best expression to fill the space.",
+        definition:"Verilen cümledeki boşluğu uygun zaman yapısı (tense), edat (preposition) veya dil bilgisi yapısıyla tamamlamanız istenir. Bağlaç sorularında cümleler arasındaki anlam ilişkisine uygun ifadeyi seçmeniz gerekir.",
         stem:"---- the treatment had shown promising results in small trials, it failed to produce a measurable benefit in the larger study.",
         options:["Because","Although","Unless","As soon as","So that"], answer:1,
         rationale:"Küçük denemelerde umut verici sonuçlar alınmasına karşın büyük çalışmada ölçülebilir yarar görülmemiştir. Beklentiyle gerçekleşen sonuç ters düştüğü için 'Although' gerekir. Ardından gelen tam yan cümle ve virgül de bu kullanıma uygundur.",
@@ -280,6 +285,7 @@
         approach:"Paragrafın genel düşüncesini okuyun; sonra boşluğun öncesi ve sonrasını birlikte değerlendirin. Seçtiğiniz sözcüğün metnin yönünü desteklediğinden emin olun.",
         skills:["metin akışı","bağlamsal çıkarım","sözcük uyumu"],
         instruction:"Choose the best word to fill the space in the passage.",
+        definition:"Bir paragrafta boş bırakılan kısımları, metnin anlamına ve dil bilgisi yapısına uygun sözcük veya ifadelerle tamamlamanız istenir.",
         passage:"For centuries, astronomers relied mainly on visible light to study distant objects. Radio telescopes later revealed regions hidden by dust. Today, researchers combine observations from several kinds of telescope to build a more ---- picture of the universe. This approach helps them study objects that would otherwise remain invisible.",
         stem:"Which word best completes the passage?",
         options:["fragmented","comprehensive","temporary","controversial","fragile"], answer:1,
@@ -291,6 +297,7 @@
         approach:"Verilen bölümdeki bağlacı ve temel yargıyı saptayın. Şık, aynı özne ve konuyla ilgili mantıklı bir devam oluşturmalı.",
         skills:["beklenmedik karşıtlık","özne takibi","mantıklı devam"],
         instruction:"Choose the best option to complete the sentence.",
+        definition:"Bir bölümü verilen cümleyi anlam ve yapı bakımından tamamlayan diğer bölümü seçenekler arasından belirlemeniz istenir.",
         stem:"Although the city has expanded its network of cycle lanes, ----.",
         options:["many residents still avoid cycling because several routes end at busy junctions","the new lanes were built alongside major roads last year","cycling has become the only means of transport for all residents","its transport department announced the plan after a public consultation","other cities have also invested in public transport"], answer:0,
         rationale:"'Although' bir beklentiye rağmen gerçekleşen durumu bağlar. Bisiklet yolları genişlemiş olsa da bazı yolların yoğun kavşaklarda bitmesi yüzünden insanların bisiklete binmekten kaçınması güçlü ve aynı konuya bağlı bir karşıtlıktır.",
@@ -301,6 +308,7 @@
         approach:"Ana yargıyı, 'although' ile kurulan karşıtlığı ve 'because' ile verilen gerekçeyi ayrı ayrı eşleştirin. Olumsuzluk ve temsil düzeyi değişiyorsa o şıkkı eleyin.",
         skills:["anlamı eksiksiz aktarma","karşıtlık ve neden","olumsuzluk takibi"],
         instruction:"Choose the most accurate Turkish translation.",
+        definition:"Verilen İngilizce cümlenin doğru ve eksiksiz Türkçe çevirisini ya da Türkçe cümlenin doğru ve eksiksiz İngilizce çevirisini seçmeniz istenir.",
         stem:"Although the survey reached participants from several regions, its findings cannot be generalized to the entire population because older adults were underrepresented.",
         options:[
           "Anket birkaç bölgeden katılımcıya ulaşmış olsa da, yaşlı yetişkinler yeterince temsil edilmediği için bulguları tüm nüfusa genellenemez.",
@@ -317,6 +325,7 @@
         approach:"Örnek ayrıntıları tek tek seçmek yerine paragrafın bütününe yayılan ana iddiayı bulun. İlk ve son cümleyi metnin geri kalanıyla karşılaştırın.",
         skills:["ana fikir","ayrıntı–genel fikir ayrımı","parafraz"],
         instruction:"Answer the question according to the passage.",
+        definition:"Verilen paragrafı okuyarak metne dayalı soruları yanıtlamanız istenir. Sorular ana fikir, ayrıntılar, çıkarımlar veya yazarın görüşüyle ilgili olabilir.",
         passage:"Urban trees can make hot streets more comfortable, but planting more trees is not always enough. Species differ in shade, water needs and their ability to survive pollution. A young tree may provide little cooling for years, while a mature one can be lost quickly if construction damages its roots. Researchers therefore argue that cities should protect existing trees as carefully as they plant new ones. They also recommend placing trees where pedestrians most need shade, such as near schools and bus stops, and maintaining them through dry periods. In this view, a tree programme should be judged by the benefits its trees provide over time, rather than by the number of saplings planted in a single year.",
         stem:"The passage mainly emphasizes that ----.",
         options:[
@@ -334,6 +343,7 @@
         approach:"Boşluğun öncesindeki soruyu ve sonrasındaki tepkiyi birlikte okuyun. Yanıt hem konuşmacının amacına hem de sonraki cümledeki 'Good idea' ifadesine uymalı.",
         skills:["konuşmacı niyeti","önce–sonra bağlantısı","tutarlı yanıt"],
         instruction:"Choose the best option to complete the dialogue.",
+        definition:"Karşılıklı konuşmada boş bırakılan yere uygun sözü seçmeniz istenir. Seçtiğiniz ifade, önceki ve sonraki konuşmalarla uyumlu olmalıdır.",
         passage:"Mira: We have enough volunteers for the community garden, but the soil test results won't arrive until next week.\nJon: Does that mean we should cancel Saturday's meeting?\nMira: ----\nJon: Good idea. We can plan the layout now and choose plants after we see the results.",
         stem:"Which response best completes Mira's turn?",
         options:[
@@ -351,6 +361,7 @@
         approach:"Olay sırasını ve 'only after' sınırlamasını koruyan şıkkı arayın. Benzer sözcükler yeterli değildir; cümle aynı koşulu ifade etmelidir.",
         skills:["zaman sırası","only after / until","anlam eşdeğerliği"],
         instruction:"Choose the sentence closest in meaning to the given sentence.",
+        definition:"Verilen İngilizce cümleye anlamca en yakın olan cümleyi seçenekler arasından seçmeniz istenir.",
         stem:"Only after the archive was digitised could researchers compare documents held in different cities.",
         options:[
           "Researchers could not compare documents from different cities until the archive had been digitised.",
@@ -367,6 +378,7 @@
         approach:"Boşluğun iki yanını okuyun; sonraki cümledeki 'For this reason' hangi düşünceye gönderme yapıyor, bulun. Doğru cümle önceki yararı kabul edip sonraki çözümün nedenini hazırlamalı.",
         skills:["gönderim sözcükleri","mantıksal köprü","karşıtlık"],
         instruction:"Choose the best sentence to complete the passage.",
+        definition:"Bir cümlesi çıkarılmış paragraftaki boşluğu, anlatım bütünlüğünü sağlayan cümleyle tamamlamanız istenir.",
         passage:"Many museums have begun to digitise their collections. Online images allow people who live far away to examine objects they might never see in person. ---- For this reason, curators often provide notes about an object's size, material and original use alongside the image.",
         stem:"Which sentence best fills the gap?",
         options:[
@@ -384,6 +396,7 @@
         approach:"Paragrafın ortak konusunu belirleyin ve her cümlenin bir sonrakine nasıl bağlandığını izleyin. Bilgi doğru olsa bile bu akışa hizmet etmeyen cümleyi seçin.",
         skills:["konu sürekliliği","gönderim takibi","akıştaki sapma"],
         instruction:"Choose the sentence that disrupts the meaning of the passage.",
+        definition:"Numaralandırılmış cümlelerden oluşan bir paragrafta, parçanın anlam bütünlüğünü bozan cümleyi belirlemeniz istenir.",
         passage:"(I) Many cities are replacing conventional streetlights with LEDs to reduce energy use. (II) LEDs generally need less electricity and can be dimmed when streets are empty. (III) Some cities also use sensors to adjust brightness in response to pedestrian activity. (IV) The first electric streetlights appeared in the nineteenth century. (V) Together, these measures can lower consumption without leaving busy areas poorly lit.",
         stem:"Which numbered sentence should be removed?",
         options:["I","II","III","IV","V"], answer:3,
@@ -448,7 +461,7 @@
       const q=questions[index],strategy=strategies[index];
       document.documentElement.style.setProperty("--accent",q.accent);document.documentElement.style.setProperty("--tint",q.tint);
       $("frontTitle").textContent=q.title;$("backTitle").textContent=q.title;$("frontIcon").textContent=q.icon;$("backIcon").textContent=q.icon;
-      $("instruction").textContent=q.instruction;$("stem").textContent=q.stem;$("passage").hidden=!q.passage;$("passageText").textContent=q.passage||"";front.classList.toggle("has-passage",!!q.passage);
+      $("typeDefinition").textContent=q.definition;$("instruction").textContent=q.instruction;$("stem").textContent=q.stem;$("passage").hidden=!q.passage;$("passageText").textContent=q.passage||"";front.classList.toggle("has-passage",!!q.passage);
       $("options").replaceChildren();$("options").classList.toggle("long",q.options.some(option=>option.length>90));
       q.options.forEach((option,i)=>{const button=node("button","option");button.type="button";button.lang=index===4?"tr":"en";button.append(node("span","letter",letters[i]),node("span","option-text",option));button.addEventListener("click",()=>{selections[active]=selections[active]===i?null:i;paintSelection()});$("options").append(button)});
       $("approachText").textContent=q.approach;$("skills").replaceChildren();q.skills.forEach(skill=>$("skills").append(node("span","skill",skill)));
