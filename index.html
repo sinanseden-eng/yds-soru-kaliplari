@@ -412,10 +412,11 @@
     const reduceMotion=window.matchMedia("(prefers-reduced-motion: reduce)");
     let active=0,side="front",revealed=false,flipToken=0,flipping=false;
     function node(tag,className,text){const el=document.createElement(tag);if(className)el.className=className;if(text!==undefined)el.textContent=text;return el}
+    function setBusy(busy){card.setAttribute("aria-busy",String(busy));["flipButton","returnButton","revealButton"].forEach(id=>$(id).disabled=busy)}
     function paintSelection(){
       const selected=selections[active];
       Array.from($("options").children).forEach((button,i)=>{button.classList.toggle("selected",i===selected);button.setAttribute("aria-pressed",String(i===selected))});
-      $("selectionNote").textContent=selected===null?"Şık seçimi cevabı göstermez.":"Seçilen şık: "+letters[selected]+". Cevap hâlâ gizli.";
+      $("selectionNote").textContent=selected===null?"Şık seçimi cevabı göstermez.":"Seçilen şık: "+letters[selected]+". Hazır olunca kartı çevirin.";
       $("clearButton").hidden=selected===null;
     }
     function hideSolution(){
@@ -443,7 +444,7 @@
     function show(index,move=false){
       if(index<0||index>=questions.length)return;
       const direction=index>active?1:-1;
-      flipToken++;flipping=false;card.getAnimations().forEach(animation=>animation.cancel());active=index;
+      flipToken++;flipping=false;setBusy(false);card.getAnimations().forEach(animation=>animation.cancel());active=index;
       const q=questions[index],strategy=strategies[index];
       document.documentElement.style.setProperty("--accent",q.accent);document.documentElement.style.setProperty("--tint",q.tint);
       $("frontTitle").textContent=q.title;$("backTitle").textContent=q.title;$("frontIcon").textContent=q.icon;$("backIcon").textContent=q.icon;
@@ -455,18 +456,19 @@
       setSide("front");paintSelection();renderNav();
       if(move){
         if(!reduceMotion.matches)card.animate([{opacity:.35,transform:"translateX("+(direction*28)+"px) rotate("+(direction*.35)+"deg)"},{opacity:1,transform:"translateX(0) rotate(0deg)"}],{duration:230,easing:"ease-out"});
-        focusCard();$("deck").scrollIntoView({block:"start",behavior:reduceMotion.matches?"instant":"smooth"});
+        focusCard();$("deck").scrollIntoView({block:"start",behavior:"instant"});
       }
     }
     async function flipCard(){
-      if(flipping)return;flipping=true;const token=++flipToken,nextSide=side==="front"?"back":"front";
+      if(flipping)return;flipping=true;setBusy(true);const token=++flipToken,nextSide=side==="front"?"back":"front";
       if(!reduceMotion.matches){
         try{await card.animate([{transform:"rotateY(0deg)",opacity:1},{transform:"rotateY(85deg)",opacity:.6}],{duration:140,easing:"ease-in",fill:"forwards"}).finished}catch{};
         if(token!==flipToken)return;
       }
       card.getAnimations().forEach(animation=>animation.cancel());setSide(nextSide);
-      if(!reduceMotion.matches)card.animate([{transform:"rotateY(-85deg)",opacity:.6},{transform:"rotateY(0deg)",opacity:1}],{duration:190,easing:"ease-out"});
-      flipping=false;focusCard();$("deck").scrollIntoView({block:"start",behavior:reduceMotion.matches?"instant":"smooth"});
+      $("deck").scrollIntoView({block:"start",behavior:"instant"});
+      if(!reduceMotion.matches){try{await card.animate([{transform:"rotateY(-85deg)",opacity:.6},{transform:"rotateY(0deg)",opacity:1}],{duration:190,easing:"ease-out"}).finished}catch{};if(token!==flipToken)return}
+      flipping=false;setBusy(false);focusCard();
     }
     questions.forEach((q,i)=>{
       const button=node("button","type-button");button.type="button";button.setAttribute("aria-label",(i+1)+". soru kartı: "+q.title);button.title=q.title;button.append(node("b","",String(i+1).padStart(2,"0")),node("span","",q.short));button.addEventListener("click",()=>show(i,true));$("typeNav").append(button);
